@@ -1,0 +1,47 @@
+---
+import { profile } from '../data/profile';
+---
+
+<section id="about" class="relative" aria-labelledby="about-heading">
+  <div class="blueprint-divider" aria-hidden="true"></div>
+  <div class="section-container">
+    <div class="reveal mb-12">
+      <p class="section-label mb-2">Profile</p>
+      <h2 id="about-heading" class="section-title">About</h2>
+    </div>
+
+    <div class="grid gap-8 md:grid-cols-[1fr_280px]">
+      <div class="space-y-5">
+        {
+          profile.about.map((paragraph, i) => (
+            <p class={`reveal reveal-delay-${i + 1} text-base leading-relaxed text-charcoal-300 md:text-lg`}>
+              {paragraph}
+            </p>
+          ))
+        }
+      </div>
+
+      <aside class="reveal reveal-delay-3 blueprint-card p-6" aria-label="Quick facts">
+        <h3 class="mb-4 text-xs font-semibold uppercase tracking-[0.15em] text-copper-400">Focus Areas</h3>
+        <ul class="space-y-3" role="list">
+          <li class="flex items-start gap-3 text-sm text-charcoal-300">
+            <span class="mt-1.5 h-1.5 w-1.5 shrink-0 bg-copper-500" aria-hidden="true"></span>
+            Healthcare facility BIM delivery
+          </li>
+          <li class="flex items-start gap-3 text-sm text-charcoal-300">
+            <span class="mt-1.5 h-1.5 w-1.5 shrink-0 bg-copper-500" aria-hidden="true"></span>
+            Multidisciplinary model coordination
+          </li>
+          <li class="flex items-start gap-3 text-sm text-charcoal-300">
+            <span class="mt-1.5 h-1.5 w-1.5 shrink-0 bg-copper-500" aria-hidden="true"></span>
+            BIM education &amp; standards
+          </li>
+          <li class="flex items-start gap-3 text-sm text-charcoal-300">
+            <span class="mt-1.5 h-1.5 w-1.5 shrink-0 bg-copper-500" aria-hidden="true"></span>
+            ISO 19650 compliance
+          </li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+</section>

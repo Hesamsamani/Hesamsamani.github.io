@@ -1,0 +1,51 @@
+---
+import { profile } from '../data/profile';
+---
+
+<section id="experience" class="relative" aria-labelledby="experience-heading">
+  <div class="blueprint-divider" aria-hidden="true"></div>
+  <div class="section-container">
+    <div class="reveal mb-12">
+      <p class="section-label mb-2">Career</p>
+      <h2 id="experience-heading" class="section-title">Experience</h2>
+    </div>
+
+    <ol class="relative space-y-0" role="list">
+      {
+        profile.experience.map((job, index) => (
+          <li class={`reveal reveal-delay-${Math.min(index + 1, 5)} relative pb-12 last:pb-0`}>
+            {index < profile.experience.length - 1 && (
+              <div
+                class="absolute left-[7px] top-3 h-full w-px bg-copper-500/20"
+                aria-hidden="true"
+              />
+            )}
+            <div class="flex gap-6">
+              <div
+                class="relative z-10 mt-1.5 h-3.5 w-3.5 shrink-0 rounded-full border-2 border-copper-500 bg-charcoal-950"
+                aria-hidden="true"
+              />
+              <article class="flex-1 blueprint-card p-6 md:p-8">
+                <div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+                  <div>
+                    <h3 class="font-display text-xl font-semibold text-charcoal-50">{job.role}</h3>
+                    <p class="text-copper-400">{job.company}</p>
+                  </div>
+                  <time class="mt-2 shrink-0 font-mono text-sm text-charcoal-500 sm:mt-0">{job.period}</time>
+                </div>
+                <ul class="mt-5 space-y-2" role="list">
+                  {job.bullets.map((bullet) => (
+                    <li class="flex items-start gap-3 text-sm leading-relaxed text-charcoal-300 md:text-base">
+                      <span class="mt-2 h-1 w-1 shrink-0 bg-copper-400" aria-hidden="true" />
+                      {bullet}
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

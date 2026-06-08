@@ -1,0 +1,34 @@
+---
+import { profile } from '../data/profile';
+---
+
+<section id="skills" class="relative" aria-labelledby="skills-heading">
+  <div class="blueprint-divider" aria-hidden="true"></div>
+  <div class="section-container">
+    <div class="reveal mb-12">
+      <p class="section-label mb-2">Toolkit</p>
+      <h2 id="skills-heading" class="section-title">Skills</h2>
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-3">
+      {
+        profile.skills.map((group, index) => (
+          <div class={`reveal reveal-delay-${index + 1} blueprint-card p-6`}>
+            <h3 class="mb-4 text-xs font-semibold uppercase tracking-[0.15em] text-copper-400">
+              {group.category}
+            </h3>
+            <ul class="flex flex-wrap gap-2" role="list">
+              {group.items.map((skill) => (
+                <li>
+                  <span class="inline-block rounded-sm border border-copper-500/20 bg-charcoal-800/50 px-3 py-1.5 text-sm text-charcoal-200">
+                    {skill}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

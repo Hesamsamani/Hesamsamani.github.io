@@ -1,0 +1,39 @@
+---
+import { profile } from '../data/profile';
+---
+
+<section id="languages" class="relative" aria-labelledby="languages-heading">
+  <div class="blueprint-divider" aria-hidden="true"></div>
+  <div class="section-container">
+    <div class="reveal mb-12">
+      <p class="section-label mb-2">Communication</p>
+      <h2 id="languages-heading" class="section-title">Languages</h2>
+    </div>
+
+    <div class="grid gap-6 sm:grid-cols-2">
+      {
+        profile.languages.map((lang, index) => (
+          <div class={`reveal reveal-delay-${index + 1} blueprint-card p-6`}>
+            <div class="mb-3 flex items-baseline justify-between">
+              <h3 class="font-display text-lg font-semibold text-charcoal-50">{lang.language}</h3>
+              <span class="text-sm text-copper-400">{lang.level}</span>
+            </div>
+            <div
+              class="h-2 w-full overflow-hidden rounded-sm bg-charcoal-800"
+              role="progressbar"
+              aria-valuenow={lang.proficiency}
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-label={`${lang.language} proficiency: ${lang.level}`}
+            >
+              <div
+                class="h-full rounded-sm bg-gradient-to-r from-copper-600 to-copper-400 transition-all duration-1000"
+                style={`width: ${lang.proficiency}%`}
+              />
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,25 @@
+---
+import { profile } from '../data/profile';
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-copper-500/10 bg-charcoal-900/40">
+  <div class="section-container !py-12">
+    <div class="flex flex-col items-center gap-4 text-center">
+      <p class="text-sm text-charcoal-400">
+        &copy; {year} {profile.name}. All rights reserved.
+      </p>
+      <p class="text-sm text-charcoal-300">
+        Also building AI tools &rarr;
+        <a
+          href={profile.codesSite}
+          class="ml-1 font-semibold text-copper-400 underline decoration-copper-500/40 underline-offset-4 transition-colors hover:text-copper-300 hover:decoration-copper-400"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          hesamsamani.codes
+        </a>
+      </p>
+    </div>
+  </div>
+</footer>
