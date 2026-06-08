@@ -256,7 +256,41 @@
   }
 
   .intro-profile {
-    @apply ring-1 ring-cyan-500/20;
+    @apply overflow-visible border-0 bg-transparent shadow-none ring-0;
+  }
+
+  .intro-profile img,
+  .hero-avatar img {
+    filter: drop-shadow(0 12px 28px rgba(33, 129, 189, 0.28));
+  }
+
+  .hero-avatar {
+    @apply overflow-visible border-0 bg-transparent shadow-none;
+  }
+
+  .hero-title-block {
+    @apply relative;
+  }
+
+  .age-orbit {
+    @apply relative inline-flex h-14 w-14 shrink-0 items-center justify-center md:h-16 md:w-16;
+  }
+
+  .age-orbit__ring {
+    @apply absolute inset-0 h-full w-full text-cyan-500/35 motion-reduce:animate-none;
+    animation: age-orbit-spin 18s linear infinite;
+  }
+
+  .age-orbit__value {
+    @apply relative font-display text-2xl font-bold leading-none text-cyan-400 md:text-3xl;
+  }
+
+  .age-orbit__label {
+    @apply absolute -bottom-0.5 left-1/2 -translate-x-1/2 font-mono text-[0.5rem] uppercase tracking-[0.25em] text-cyan-500/70;
+  }
+
+  .age-orbit__caption {
+    @apply absolute -right-1 top-1/2 hidden -translate-y-1/2 translate-x-full pl-2 font-mono text-[0.55rem] uppercase leading-tight tracking-widest text-arch-400 sm:block;
   }
 
   .blueprint-card {
@@ -282,4 +316,9 @@
 @keyframes music-pulse {
   0% { transform: scale(1); opacity: 0.6; }
   100% { transform: scale(1.5); opacity: 0; }
+}
+
+@keyframes age-orbit-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }

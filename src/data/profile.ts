@@ -1,5 +1,6 @@
 export const profile = {
   name: 'Hesam Samani',
+  age: 29,
   location: 'Hasselt, Belgium',
   relocation: 'Open to relocation',
   tagline: 'BIM Specialist · Revit Professional · MEP & HVAC Engineer',
@@ -76,7 +77,7 @@ export const profile = {
     },
     {
       category: 'Software',
-      items: ['AutoCAD', 'Rhino', 'Python', 'SketchUp'],
+      items: ['AutoCAD', 'Rhino', 'Python Programmer', 'SketchUp'],
     },
   ],
   projects: [
