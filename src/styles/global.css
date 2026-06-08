@@ -218,7 +218,27 @@
   }
 
   .site-logo--cyan {
-    filter: brightness(0) saturate(100%) invert(36%) sepia(72%) saturate(1200%) hue-rotate(176deg) brightness(95%) contrast(92%);
+    background-color: #2181bd;
+    mask-image: url('/images/logo.png');
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-image: url('/images/logo.png');
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+  }
+
+  .site-logo--nav {
+    @apply h-11 w-11 transition-colors;
+  }
+
+  .group:hover .site-logo--cyan.site-logo--nav {
+    background-color: #6dadd8;
+  }
+
+  .site-logo--intro {
+    @apply mx-auto h-16 w-16;
   }
 
   .blueprint-card {
