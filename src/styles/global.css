@@ -213,6 +213,14 @@
     @apply mt-3 text-[10px] text-arch-300;
   }
 
+  .site-logo {
+    @apply shrink-0;
+  }
+
+  .site-logo--cyan {
+    filter: brightness(0) saturate(100%) invert(36%) sepia(72%) saturate(1200%) hue-rotate(176deg) brightness(95%) contrast(92%);
+  }
+
   .blueprint-card {
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
   }

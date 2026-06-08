@@ -2,8 +2,8 @@ export const profile = {
   name: 'Hesam Samani',
   location: 'Hasselt, Belgium',
   relocation: 'Open to relocation',
-  tagline: 'BIM Specialist · Revit Professional · Healthcare Projects',
-  roleTags: ['BIM Specialist', 'Revit Professional', 'Healthcare Projects'],
+  tagline: 'BIM Specialist · Revit Professional · MEP & HVAC Engineering',
+  roleTags: ['BIM Specialist', 'Revit Professional', 'MEP & HVAC Engineer'],
   email: 'hesamghsamani@gmail.com',
   phone: '+32 470 176161',
   linkedin: 'https://www.linkedin.com/in/hesam-samani/',
@@ -80,16 +80,16 @@ export const profile = {
   ],
   projects: [
     {
-      title: 'Regional Hospital — Phase 2 CD',
-      category: 'Healthcare BIM',
+      title: 'MEP and HVAC Engineer',
+      category: 'MEP & HVAC',
       description:
-        'Led multidisciplinary Revit production for a 12,000 m² hospital expansion, delivering coordinated LOD 400 construction documentation across architecture, structure, and MEP.',
+        'Led multidisciplinary Revit MEP and HVAC production for a 12,000 m² facility expansion, delivering coordinated LOD 400 construction documentation across architecture, structure, and building services.',
       highlights: [
         'Federated 6 discipline models with weekly clash-detection cycles',
         'Delivered 180+ sheets with ISO 19650-compliant naming and revision control',
-        'Reduced RFIs during documentation phase through proactive coordination',
+        'Reduced RFIs during documentation phase through proactive MEP coordination',
       ],
-      metrics: ['LOD 400', '6 Disciplines', '180+ Sheets'],
+      metrics: ['LOD 400', 'MEP & HVAC', '180+ Sheets'],
     },
     {
       title: 'BIM Workflow Optimization',

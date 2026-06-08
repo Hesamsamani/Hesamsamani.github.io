@@ -17,7 +17,12 @@ const storageKey = 'hesam-portfolio-intro-seen';
 
   <div class="relative mx-auto w-full max-w-md px-8 text-center">
     <p class="font-mono text-xs uppercase tracking-[0.35em] text-cyan-500/80">Loading experience...</p>
-    <div class="mx-auto mt-8 h-24 w-24 overflow-hidden rounded-sm border-2 border-cyan-500/40 shadow-lg shadow-cyan-500/20">
+
+    <div class="mx-auto mt-6 flex h-16 w-16 items-center justify-center">
+      <img src="/images/logo.png" alt="Hesam Samani logo" width="64" height="64" class="site-logo site-logo--cyan h-14 w-14 object-contain" loading="eager" />
+    </div>
+
+    <div class="mx-auto mt-6 h-24 w-24 overflow-hidden rounded-sm border-2 border-cyan-500/40 shadow-lg shadow-cyan-500/20">
       <img
         src="/images/profile.png"
         alt=""
@@ -31,7 +36,7 @@ const storageKey = 'hesam-portfolio-intro-seen';
       Hesam Samani
     </h1>
     <p id="intro-desc" class="intro-tagline mt-3 text-base text-arch-200">
-      BIM Specialist · Revit · Healthcare Projects
+      BIM Specialist · MEP & HVAC Engineer
     </p>
 
     <div class="intro-progress-track mx-auto mt-8 h-1 max-w-xs overflow-hidden rounded-full bg-arch-800">
@@ -41,9 +46,11 @@ const storageKey = 'hesam-portfolio-intro-seen';
     <button
       type="button"
       id="enter-site"
-      class="intro-enter-btn mt-10 hidden inline-flex items-center gap-2 rounded-sm bg-cyan-500 px-8 py-3.5 text-sm font-semibold text-white opacity-0 transition-all hover:bg-cyan-400 hover:shadow-lg hover:shadow-cyan-500/25"
+      class="intro-enter-btn mt-10 inline-flex items-center gap-2 rounded-sm bg-cyan-500 px-8 py-3.5 text-sm font-semibold text-white opacity-0 pointer-events-none transition-all hover:bg-cyan-400 hover:shadow-lg hover:shadow-cyan-500/25"
+      aria-hidden="true"
+      tabindex="-1"
     >
-      Enter Site
+      Continue
       <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
         <path stroke-linecap="square" d="M5 12h14M13 6l6 6-6 6" />
       </svg>
@@ -71,6 +78,15 @@ const storageKey = 'hesam-portfolio-intro-seen';
     }
   }
 
+  const showContinue = () => {
+    if (!enterBtn) return;
+    enterBtn.classList.remove('opacity-0', 'pointer-events-none');
+    enterBtn.classList.add('intro-enter-btn--visible');
+    enterBtn.removeAttribute('aria-hidden');
+    enterBtn.removeAttribute('tabindex');
+    enterBtn.focus();
+  };
+
   if (sessionStorage.getItem(storageKey) === '1') {
     intro?.remove();
   } else if (intro) {
@@ -87,8 +103,7 @@ const storageKey = 'hesam-portfolio-intro-seen';
       window.clearInterval(tick);
       window.setTimeout(() => {
         tagline?.classList.add('hidden');
-        enterBtn?.classList.remove('hidden');
-        enterBtn?.classList.add('intro-enter-btn--visible');
+        showContinue();
       }, 280);
     } else {
       bar.style.width = `${progress}%`;
@@ -101,6 +116,7 @@ const storageKey = 'hesam-portfolio-intro-seen';
     sessionStorage.setItem(storageKey, '1');
     window.setTimeout(() => intro.remove(), 500);
     document.body.style.overflow = '';
+    window.dispatchEvent(new CustomEvent('hesam:intro-dismissed'));
     if (typeof window.startPortfolioMusic === 'function') {
       window.startPortfolioMusic();
     }
@@ -109,7 +125,13 @@ const storageKey = 'hesam-portfolio-intro-seen';
   enterBtn?.addEventListener('click', dismissIntro);
 
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter' && intro && document.body.contains(intro) && enterBtn && !enterBtn.classList.contains('hidden')) {
+    if (
+      event.key === 'Enter' &&
+      intro &&
+      document.body.contains(intro) &&
+      enterBtn &&
+      !enterBtn.classList.contains('pointer-events-none')
+    ) {
       dismissIntro();
     }
   });
