@@ -255,42 +255,58 @@
     @apply h-24 w-24 sm:h-28 sm:w-28;
   }
 
-  .intro-profile {
-    @apply overflow-visible border-0 bg-transparent shadow-none ring-0;
-  }
-
-  .intro-profile img,
-  .hero-avatar img {
-    filter: drop-shadow(0 12px 28px rgba(33, 129, 189, 0.28));
-  }
-
   .hero-avatar {
-    @apply overflow-visible border-0 bg-transparent shadow-none;
+    @apply relative overflow-hidden rounded-sm border-2 border-cyan-500/35 shadow-2xl shadow-cyan-500/10;
   }
 
-  .hero-title-block {
-    @apply relative;
+  .intro-profile {
+    @apply relative overflow-hidden rounded-sm border-2 border-cyan-500/40 shadow-xl shadow-cyan-500/25 ring-1 ring-cyan-500/20;
   }
 
-  .age-orbit {
-    @apply relative inline-flex h-14 w-14 shrink-0 items-center justify-center md:h-16 md:w-16;
+  .age-callout {
+    @apply pointer-events-none absolute -bottom-2 -right-2 z-10 flex flex-col items-center gap-0.5 border border-dashed border-cyan-500/50 bg-arch-950/90 px-2 py-1.5 backdrop-blur-sm;
+    transform: rotate(-4deg);
+    box-shadow: 0 8px 20px -8px rgba(33, 129, 189, 0.45);
   }
 
-  .age-orbit__ring {
-    @apply absolute inset-0 h-full w-full text-cyan-500/35 motion-reduce:animate-none;
-    animation: age-orbit-spin 18s linear infinite;
+  .age-callout::before,
+  .age-callout::after {
+    content: '';
+    @apply pointer-events-none absolute h-2 w-2 border-cyan-400/60;
   }
 
-  .age-orbit__value {
-    @apply relative font-display text-2xl font-bold leading-none text-cyan-400 md:text-3xl;
+  .age-callout::before {
+    top: -1px;
+    left: -1px;
+    border-top-width: 1px;
+    border-left-width: 1px;
   }
 
-  .age-orbit__label {
-    @apply absolute -bottom-0.5 left-1/2 -translate-x-1/2 font-mono text-[0.5rem] uppercase tracking-[0.25em] text-cyan-500/70;
+  .age-callout::after {
+    bottom: -1px;
+    right: -1px;
+    border-bottom-width: 1px;
+    border-right-width: 1px;
   }
 
-  .age-orbit__caption {
-    @apply absolute -right-1 top-1/2 hidden -translate-y-1/2 translate-x-full pl-2 font-mono text-[0.55rem] uppercase leading-tight tracking-widest text-arch-400 sm:block;
+  .age-callout--intro {
+    @apply -bottom-1.5 -right-1.5 scale-90;
+  }
+
+  .age-callout__label {
+    @apply font-mono text-[0.45rem] uppercase tracking-[0.35em] text-cyan-500/80;
+  }
+
+  .age-callout__digits {
+    @apply flex gap-0.5;
+  }
+
+  .age-callout__digit {
+    @apply flex h-7 w-6 items-center justify-center border border-cyan-500/35 bg-cyan-500/10 font-display text-lg font-bold leading-none text-cyan-300 md:h-8 md:w-7 md:text-xl;
+  }
+
+  .age-callout__unit {
+    @apply font-mono text-[0.48rem] uppercase tracking-[0.2em] text-arch-300;
   }
 
   .blueprint-card {
@@ -318,7 +334,3 @@
   100% { transform: scale(1.5); opacity: 0; }
 }
 
-@keyframes age-orbit-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
