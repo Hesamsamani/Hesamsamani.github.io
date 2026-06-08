@@ -68,9 +68,11 @@
     const ctx = ambientCanvas.getContext('2d');
     let mouse = { x: -9999, y: -9999 };
     const nodes = [];
-    const NODE_COUNT = isMobile ? 20 : 44;
+    const NODE_COUNT = isMobile ? 34 : 62;
+    const DUST_COUNT = isMobile ? 22 : 38;
     const MOUSE_FIELD = isMobile ? 160 : 220;
-    const CONNECT_DIST = HEX_R * 3.2;
+    const CONNECT_DIST = HEX_R * 3.6;
+    const MAX_LINKS_PER_NODE = 4;
     let gridOffset = 0;
 
     const resize = () => {
@@ -95,9 +97,9 @@
         this.baseVy = (Math.random() - 0.5) * 0.08;
         this.vx = this.baseVx;
         this.vy = this.baseVy;
-        this.r = 2 + Math.random() * 1.5;
-        this.alpha = 0.18 + Math.random() * 0.22;
-        this.isColumn = Math.random() > 0.65;
+        this.r = 1.6 + Math.random() * 1.8;
+        this.alpha = 0.14 + Math.random() * 0.2;
+        this.isColumn = Math.random() > 0.72;
       }
       update() {
         const dx = mouse.x - this.x;
@@ -130,12 +132,67 @@
       }
     }
 
+    const dust = [];
+    class DustMote {
+      constructor() {
+        this.x = Math.random() * ambientCanvas.width;
+        this.y = Math.random() * ambientCanvas.height;
+        this.r = 0.6 + Math.random() * 0.9;
+        this.alpha = 0.06 + Math.random() * 0.1;
+        this.vx = (Math.random() - 0.5) * 0.04;
+        this.vy = (Math.random() - 0.5) * 0.04;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x < 0) this.x = ambientCanvas.width;
+        if (this.x > ambientCanvas.width) this.x = 0;
+        if (this.y < 0) this.y = ambientCanvas.height;
+        if (this.y > ambientCanvas.height) this.y = 0;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.fillStyle = `${palette.glow}${this.alpha})`;
+        ctx.fill();
+      }
+    }
+
     for (let i = 0; i < NODE_COUNT; i++) nodes.push(new StructuralNode());
+    for (let i = 0; i < DUST_COUNT; i++) dust.push(new DustMote());
+
+    const drawNodeLinks = () => {
+      for (let i = 0; i < nodes.length; i++) {
+        const nearby = [];
+        for (let j = 0; j < nodes.length; j++) {
+          if (i === j) continue;
+          const dx = nodes[i].x - nodes[j].x;
+          const dy = nodes[i].y - nodes[j].y;
+          const dist = Math.hypot(dx, dy);
+          if (dist < CONNECT_DIST) nearby.push({ j, dist });
+        }
+        nearby.sort((a, b) => a.dist - b.dist);
+        nearby.slice(0, MAX_LINKS_PER_NODE).forEach(({ j, dist }) => {
+          if (i > j) return;
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.strokeStyle = `${palette.beam}${0.09 * (1 - dist / CONNECT_DIST)})`;
+          ctx.lineWidth = 0.65;
+          ctx.stroke();
+        });
+      }
+    };
 
     const animate = () => {
       gridOffset += 0.12;
       ctx.clearRect(0, 0, ambientCanvas.width, ambientCanvas.height);
-      drawHexGrid(ctx, ambientCanvas.width, ambientCanvas.height, gridOffset * 0.25, gridOffset * 0.18, 0.09);
+      drawHexGrid(ctx, ambientCanvas.width, ambientCanvas.height, gridOffset * 0.25, gridOffset * 0.18, 0.07);
+
+      dust.forEach((d) => {
+        d.update();
+        d.draw();
+      });
 
       const grd = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, isMobile ? 140 : 200);
       grd.addColorStop(0, `${palette.glow}0.16)`);
@@ -149,20 +206,9 @@
         n.draw();
       });
 
+      drawNodeLinks();
+
       for (let i = 0; i < nodes.length; i++) {
-        for (let j = i + 1; j < nodes.length; j++) {
-          const dx = nodes[i].x - nodes[j].x;
-          const dy = nodes[i].y - nodes[j].y;
-          const dist = Math.hypot(dx, dy);
-          if (dist < CONNECT_DIST) {
-            ctx.beginPath();
-            ctx.moveTo(nodes[i].x, nodes[i].y);
-            ctx.lineTo(nodes[j].x, nodes[j].y);
-            ctx.strokeStyle = `${palette.beam}${0.12 * (1 - dist / CONNECT_DIST)})`;
-            ctx.lineWidth = 0.8;
-            ctx.stroke();
-          }
-        }
         const mdx = mouse.x - nodes[i].x;
         const mdy = mouse.y - nodes[i].y;
         const mdist = Math.hypot(mdx, mdy);
@@ -170,7 +216,7 @@
           ctx.beginPath();
           ctx.moveTo(nodes[i].x, nodes[i].y);
           ctx.lineTo(mouse.x, mouse.y);
-          ctx.strokeStyle = `${palette.glow}${0.22 * (1 - mdist / MOUSE_FIELD)})`;
+          ctx.strokeStyle = `${palette.glow}${0.18 * (1 - mdist / MOUSE_FIELD)})`;
           ctx.lineWidth = 1;
           ctx.stroke();
         }
@@ -188,8 +234,10 @@
   if (heroCanvas && heroSection) {
     const ctx = heroCanvas.getContext('2d');
     const nodes = [];
-    const COUNT = isMobile ? 24 : 58;
-    const CONNECT_DIST = isMobile ? 100 : 155;
+    const COUNT = isMobile ? 38 : 82;
+    const DUST_COUNT = isMobile ? 18 : 32;
+    const CONNECT_DIST = isMobile ? 108 : 168;
+    const MAX_LINKS_PER_NODE = 4;
     const MOUSE_RADIUS = isMobile ? 180 : 260;
     let mouse = { x: null, y: null };
     let tick = 0;
@@ -228,8 +276,8 @@
         this.baseVy = (Math.random() - 0.5) * 0.25;
         this.vx = this.baseVx;
         this.vy = this.baseVy;
-        this.r = Math.random() * 2 + 1.2;
-        this.baseAlpha = Math.random() * 0.35 + 0.15;
+        this.r = Math.random() * 1.8 + 1;
+        this.baseAlpha = Math.random() * 0.3 + 0.12;
         this.a = this.baseAlpha;
       }
       update() {
@@ -264,12 +312,67 @@
       }
     }
 
+    const dust = [];
+    class HeroDust {
+      constructor() {
+        this.x = Math.random() * heroCanvas.width;
+        this.y = Math.random() * heroCanvas.height;
+        this.r = 0.5 + Math.random() * 0.8;
+        this.alpha = 0.05 + Math.random() * 0.09;
+        this.vx = (Math.random() - 0.5) * 0.05;
+        this.vy = (Math.random() - 0.5) * 0.05;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x < 0) this.x = heroCanvas.width;
+        if (this.x > heroCanvas.width) this.x = 0;
+        if (this.y < 0) this.y = heroCanvas.height;
+        if (this.y > heroCanvas.height) this.y = 0;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.fillStyle = `${palette.particle}${this.alpha})`;
+        ctx.fill();
+      }
+    }
+
     for (let i = 0; i < COUNT; i++) nodes.push(new PlanNode());
+    for (let i = 0; i < DUST_COUNT; i++) dust.push(new HeroDust());
+
+    const drawHeroLinks = () => {
+      for (let i = 0; i < nodes.length; i++) {
+        const nearby = [];
+        for (let j = 0; j < nodes.length; j++) {
+          if (i === j) continue;
+          const dx = nodes[i].x - nodes[j].x;
+          const dy = nodes[i].y - nodes[j].y;
+          const dist = Math.hypot(dx, dy);
+          if (dist < CONNECT_DIST) nearby.push({ j, dist });
+        }
+        nearby.sort((a, b) => a.dist - b.dist);
+        nearby.slice(0, MAX_LINKS_PER_NODE).forEach(({ j, dist }) => {
+          if (i > j) return;
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.strokeStyle = `${palette.beam}${0.13 * (1 - dist / CONNECT_DIST)})`;
+          ctx.lineWidth = 0.6;
+          ctx.stroke();
+        });
+      }
+    };
 
     const animate = () => {
       tick += 0.35;
       ctx.clearRect(0, 0, heroCanvas.width, heroCanvas.height);
-      drawHexGrid(ctx, heroCanvas.width, heroCanvas.height, tick, tick * 0.55, 0.11);
+      drawHexGrid(ctx, heroCanvas.width, heroCanvas.height, tick, tick * 0.55, 0.08);
+
+      dust.forEach((d) => {
+        d.update();
+        d.draw();
+      });
 
       if (mouse.x !== null) {
         const g = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, MOUSE_RADIUS);
@@ -284,20 +387,9 @@
         p.draw();
       });
 
+      drawHeroLinks();
+
       for (let i = 0; i < nodes.length; i++) {
-        for (let j = i + 1; j < nodes.length; j++) {
-          const dx = nodes[i].x - nodes[j].x;
-          const dy = nodes[i].y - nodes[j].y;
-          const dist = Math.hypot(dx, dy);
-          if (dist < CONNECT_DIST) {
-            ctx.beginPath();
-            ctx.moveTo(nodes[i].x, nodes[i].y);
-            ctx.lineTo(nodes[j].x, nodes[j].y);
-            ctx.strokeStyle = `${palette.beam}${0.18 * (1 - dist / CONNECT_DIST)})`;
-            ctx.lineWidth = 0.7;
-            ctx.stroke();
-          }
-        }
         if (mouse.x !== null) {
           const dx = nodes[i].x - mouse.x;
           const dy = nodes[i].y - mouse.y;
