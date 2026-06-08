@@ -7,7 +7,9 @@ export const profile = {
   email: 'hesamghsamani@gmail.com',
   phone: '+32 470 176161',
   linkedin: 'https://www.linkedin.com/in/hesam-samani/',
+  github: 'https://github.com/Hesamsamani',
   codesSite: 'https://hesamsamani.codes',
+  greeting: "Hello, I'm",
   stats: [
     { value: '4+', label: 'Years BIM Experience' },
     { value: '3', label: 'Autodesk ACP Certs' },
@@ -23,6 +25,9 @@ export const profile = {
       company: 'Olum Fonun Kadoos Higher Education Institute',
       role: 'BIM Instructor',
       period: '2023 – 2025',
+      duration: '2 Years',
+      featured: true,
+      tags: ['Revit', 'BIM Coordination', 'Teaching', 'LOD Standards'],
       bullets: [
         'Delivered structured Revit and BIM coordination curricula to 50+ architecture and engineering students',
         'Developed hands-on lab exercises covering LOD standards, clash detection, and model federation workflows',
@@ -33,6 +38,8 @@ export const profile = {
       company: 'Guilan University',
       role: 'BIM Coordinator',
       period: '2021 – 2022',
+      duration: '1 Year',
+      tags: ['Navisworks', 'Solibri', 'BEP', 'Model Federation'],
       bullets: [
         'Coordinated multidisciplinary Revit models across architecture, structure, and MEP disciplines',
         'Established BIM execution plans and clash-detection protocols for academic research projects',
@@ -43,6 +50,8 @@ export const profile = {
       company: 'ABAD Consulting Engineers',
       role: 'Junior Architect',
       period: '2019 – 2021',
+      duration: '2 Years',
+      tags: ['Healthcare BIM', 'LOD 400', 'Navisworks', 'Revit'],
       bullets: [
         'Produced Revit construction documentation for healthcare and commercial buildings up to LOD 400',
         'Optimized BIM workflows achieving 15% fewer coordination errors, 18% less rework, and 12% fewer model errors',

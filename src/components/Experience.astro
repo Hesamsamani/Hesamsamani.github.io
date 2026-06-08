@@ -7,42 +7,70 @@ import { profile } from '../data/profile';
   <div class="section-container">
     <div class="reveal mb-12">
       <p class="section-label mb-2">Career</p>
-      <h2 id="experience-heading" class="section-title">Experience</h2>
+      <h2 id="experience-heading" class="section-title">Experience & Education</h2>
+      <p class="mt-4 max-w-2xl text-base text-charcoal-400">
+        Healthcare BIM delivery, academic instruction, and multidisciplinary coordination across Iran and Belgium.
+      </p>
     </div>
 
-    <ol class="relative space-y-0" role="list">
+    <ol class="relative space-y-8" role="list">
       {
         profile.experience.map((job, index) => (
-          <li class={`reveal reveal-delay-${Math.min(index + 1, 5)} relative pb-12 last:pb-0`}>
-            {index < profile.experience.length - 1 && (
-              <div
-                class="absolute left-[7px] top-3 h-full w-px bg-copper-500/20"
-                aria-hidden="true"
-              />
-            )}
-            <div class="flex gap-6">
-              <div
-                class="relative z-10 mt-1.5 h-3.5 w-3.5 shrink-0 rounded-full border-2 border-copper-500 bg-charcoal-950"
-                aria-hidden="true"
-              />
-              <article class="flex-1 blueprint-card p-6 md:p-8">
-                <div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+          <li class={`reveal reveal-delay-${Math.min(index + 1, 5)}`}>
+            <article
+              class:list={[
+                'blueprint-card relative overflow-hidden p-6 md:p-8',
+                job.featured && 'ring-1 ring-copper-500/25',
+              ]}
+            >
+              {job.featured && (
+                <span class="absolute right-4 top-4 rounded-sm border border-copper-500/40 bg-copper-500/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-copper-300">
+                  Featured Role
+                </span>
+              )}
+
+              <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                <div class="flex gap-4">
+                  <div
+                    class="flex h-12 w-12 shrink-0 items-center justify-center rounded-sm border border-copper-500/25 bg-charcoal-800/80 font-display text-lg font-bold text-copper-400"
+                    aria-hidden="true"
+                  >
+                    {job.company.charAt(0)}
+                  </div>
                   <div>
                     <h3 class="font-display text-xl font-semibold text-charcoal-50">{job.role}</h3>
                     <p class="text-copper-400">{job.company}</p>
                   </div>
-                  <time class="mt-2 shrink-0 font-mono text-sm text-charcoal-500 sm:mt-0">{job.period}</time>
                 </div>
-                <ul class="mt-5 space-y-2" role="list">
-                  {job.bullets.map((bullet) => (
-                    <li class="flex items-start gap-3 text-sm leading-relaxed text-charcoal-300 md:text-base">
-                      <span class="mt-2 h-1 w-1 shrink-0 bg-copper-400" aria-hidden="true" />
-                      {bullet}
-                    </li>
+                <div class="flex shrink-0 flex-wrap items-center gap-2 sm:flex-col sm:items-end">
+                  {'duration' in job && job.duration && (
+                    <span class="rounded-sm border border-copper-500/20 bg-charcoal-800/60 px-2.5 py-1 font-mono text-xs text-copper-300">
+                      {job.duration}
+                    </span>
+                  )}
+                  <time class="font-mono text-sm text-charcoal-500">{job.period}</time>
+                </div>
+              </div>
+
+              <ul class="mt-5 space-y-2" role="list">
+                {job.bullets.map((bullet) => (
+                  <li class="flex items-start gap-3 text-sm leading-relaxed text-charcoal-300 md:text-base">
+                    <span class="mt-2 h-1 w-1 shrink-0 bg-copper-400" aria-hidden="true" />
+                    {bullet}
+                  </li>
+                ))}
+              </ul>
+
+              {'tags' in job && job.tags && (
+                <div class="mt-6 flex flex-wrap gap-2 border-t border-copper-500/10 pt-5">
+                  {job.tags.map((tag) => (
+                    <span class="rounded-sm border border-copper-500/20 bg-copper-500/5 px-2.5 py-1 font-mono text-xs text-copper-300">
+                      {tag}
+                    </span>
                   ))}
-                </ul>
-              </article>
-            </div>
+                </div>
+              )}
+            </article>
           </li>
         ))
       }

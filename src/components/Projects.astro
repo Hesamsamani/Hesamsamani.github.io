@@ -1,5 +1,7 @@
 ---
 import { profile } from '../data/profile';
+
+const categories = ['All', ...new Set(profile.projects.map((p) => p.category))];
 ---
 
 <section id="projects" class="relative" aria-labelledby="projects-heading">
@@ -13,11 +15,42 @@ import { profile } from '../data/profile';
       </p>
     </div>
 
-    <div class="grid gap-6 lg:grid-cols-3">
+    <div
+      class="reveal reveal-delay-1 mb-10 flex flex-wrap gap-2"
+      role="group"
+      aria-label="Filter projects by category"
+      data-project-filters
+    >
+      {
+        categories.map((category, index) => (
+          <button
+            type="button"
+            class:list={[
+              'rounded-sm border px-4 py-2 text-xs font-semibold uppercase tracking-wider transition-all',
+              index === 0
+                ? 'border-copper-500/50 bg-copper-500/15 text-copper-300'
+                : 'border-copper-500/20 bg-charcoal-900/40 text-charcoal-400 hover:border-copper-400/40 hover:text-copper-300',
+            ]}
+            data-filter={category}
+            aria-pressed={index === 0 ? 'true' : 'false'}
+          >
+            {category}
+          </button>
+        ))
+      }
+    </div>
+
+    <p class="sr-only" aria-live="polite" aria-atomic="true" data-project-filter-status>
+      Showing {profile.projects.length} projects
+    </p>
+
+    <div class="grid gap-6 lg:grid-cols-3" data-project-grid>
       {
         profile.projects.map((project, index) => (
           <article
-            class={`reveal reveal-delay-${Math.min(index + 1, 5)} blueprint-card flex flex-col overflow-hidden`}
+            class={`reveal reveal-delay-${Math.min(index + 1, 5)} blueprint-card flex flex-col overflow-hidden transition-opacity`}
+            data-project-card
+            data-category={project.category}
           >
             <div
               class="relative flex h-36 items-end overflow-hidden border-b border-copper-500/15 bg-gradient-to-br from-charcoal-800 via-charcoal-900 to-charcoal-950 p-5"
@@ -38,16 +71,21 @@ import { profile } from '../data/profile';
 
             <div class="flex flex-1 flex-col p-6">
               <h3 class="font-display text-xl font-semibold text-charcoal-50">{project.title}</h3>
-              <p class="mt-3 flex-1 text-sm leading-relaxed text-charcoal-300">{project.description}</p>
+              <p class="mt-3 text-sm leading-relaxed text-charcoal-300">{project.description}</p>
 
-              <ul class="mt-5 space-y-2" role="list">
-                {project.highlights.map((highlight) => (
-                  <li class="flex items-start gap-2.5 text-sm text-charcoal-400">
-                    <span class="mt-2 h-1 w-1 shrink-0 bg-copper-400" aria-hidden="true" />
-                    {highlight}
-                  </li>
-                ))}
-              </ul>
+              <details class="project-details mt-4 group">
+                <summary class="flex cursor-pointer list-none items-center gap-2 text-sm font-medium text-copper-400 transition-colors hover:text-copper-300">
+                  <span class="transition-transform group-open:rotate-90" aria-hidden="true">▸</span>
+                  Description
+                </summary>
+                <ul class="mt-3 space-y-2 border-l border-copper-500/20 pl-4" role="list">
+                  {project.highlights.map((highlight) => (
+                    <li class="text-sm leading-relaxed text-charcoal-400">{highlight}</li>
+                  ))}
+                </ul>
+              </details>
+
+              <div class="flex-1" aria-hidden="true"></div>
 
               <div class="mt-6 flex flex-wrap gap-2 border-t border-copper-500/10 pt-5">
                 {project.metrics.map((metric) => (
@@ -63,3 +101,50 @@ import { profile } from '../data/profile';
     </div>
   </div>
 </section>
+
+<script>
+  const filterRoot = document.querySelector('[data-project-filters]');
+  const grid = document.querySelector('[data-project-grid]');
+  const filterStatus = document.querySelector('[data-project-filter-status]');
+
+  if (filterRoot && grid) {
+    const cards = Array.from(grid.querySelectorAll<HTMLElement>('[data-project-card]'));
+    const buttons = Array.from(filterRoot.querySelectorAll<HTMLButtonElement>('[data-filter]'));
+
+    const setActiveButton = (active: HTMLButtonElement) => {
+      buttons.forEach((button) => {
+        const isActive = button === active;
+        button.setAttribute('aria-pressed', String(isActive));
+        button.classList.toggle('border-copper-500/50', isActive);
+        button.classList.toggle('bg-copper-500/15', isActive);
+        button.classList.toggle('text-copper-300', isActive);
+        button.classList.toggle('border-copper-500/20', !isActive);
+        button.classList.toggle('bg-charcoal-900/40', !isActive);
+        button.classList.toggle('text-charcoal-400', !isActive);
+      });
+    };
+
+    const applyFilter = (filter: string) => {
+      let visibleCount = 0;
+
+      cards.forEach((card) => {
+        const category = card.dataset.category ?? '';
+        const isVisible = filter === 'All' || category === filter;
+        card.classList.toggle('hidden', !isVisible);
+        if (isVisible) visibleCount += 1;
+      });
+
+      if (filterStatus) {
+        filterStatus.textContent =
+          visibleCount === 1 ? 'Showing 1 project' : `Showing ${visibleCount} projects`;
+      }
+    };
+
+    filterRoot.addEventListener('click', (event) => {
+      const target = (event.target as HTMLElement).closest<HTMLButtonElement>('[data-filter]');
+      if (!target) return;
+      setActiveButton(target);
+      applyFilter(target.dataset.filter ?? 'All');
+    });
+  }
+</script>

@@ -24,6 +24,16 @@
     background-size: 40px 40px, 40px 40px, 100% 100%, 100% 100%;
   }
 
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 60;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  }
+
   ::selection {
     @apply bg-copper-500/40 text-charcoal-50;
   }
@@ -88,4 +98,137 @@
   .blueprint-divider {
     @apply h-px w-full bg-gradient-to-r from-transparent via-copper-500/30 to-transparent;
   }
+
+  .social-chip {
+    @apply inline-flex items-center gap-2 rounded-sm border border-copper-500/20 bg-charcoal-900/60 px-3 py-2 text-charcoal-400 transition-all hover:border-copper-500/40 hover:bg-copper-500/10 hover:text-copper-300;
+  }
+
+  .nav-link-active {
+    @apply bg-copper-500/10 text-copper-300;
+  }
+
+  .site-intro {
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+  }
+
+  .site-intro--exit {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .intro-particles {
+    @apply pointer-events-none absolute inset-0 overflow-hidden;
+  }
+
+  .intro-particle {
+    @apply absolute h-1 w-1 rounded-full bg-copper-400/60;
+    animation: intro-float 4s ease-in-out infinite;
+  }
+
+  .intro-enter-btn--visible {
+    @apply opacity-100;
+    animation: revealFade 0.5s ease forwards;
+  }
+
+  .ambient-canvas {
+    @apply pointer-events-none fixed inset-0 z-[1];
+  }
+
+  .hero-particle-canvas {
+    @apply pointer-events-none absolute inset-0 z-0 h-full w-full;
+  }
+
+  .hero-cursor,
+  .hero-cursor-dot {
+    @apply pointer-events-none fixed z-[90] hidden rounded-full;
+    transform: translate(-50%, -50%);
+  }
+
+  .hero-cursor {
+    @apply h-10 w-10 border border-copper-500/40;
+    transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease;
+  }
+
+  .hero-cursor.is-visible {
+    @apply block;
+  }
+
+  .hero-cursor-dot {
+    @apply h-1.5 w-1.5 bg-copper-400;
+  }
+
+  .hero-cursor-dot.is-visible {
+    @apply block;
+  }
+
+  body.custom-cursor-active [data-hero-section] a,
+  body.custom-cursor-active [data-hero-section] button {
+    cursor: none;
+  }
+
+  .music-player {
+    @apply fixed bottom-6 right-6 z-[80];
+  }
+
+  .music-toggle {
+    @apply relative flex h-12 w-12 items-center justify-center rounded-full border border-copper-500/30 bg-charcoal-900/90 text-copper-400 shadow-lg backdrop-blur-md transition-all hover:border-copper-400/50 hover:text-copper-300;
+  }
+
+  .music-toggle.is-playing .music-pulse {
+    @apply absolute inset-0 rounded-full border border-copper-500/50;
+    animation: music-pulse 2s ease-out infinite;
+  }
+
+  .music-widget {
+    @apply absolute bottom-14 right-0 w-64 translate-y-2 rounded-sm border border-copper-500/25 bg-charcoal-900/95 p-4 opacity-0 shadow-xl backdrop-blur-md transition-all pointer-events-none;
+  }
+
+  .music-widget.is-open {
+    @apply translate-y-0 opacity-100 pointer-events-auto;
+  }
+
+  .audio-controls {
+    @apply mt-3 flex items-center gap-3;
+  }
+
+  .audio-play-btn {
+    @apply flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-copper-500/20 text-copper-300 transition-colors hover:bg-copper-500/30;
+  }
+
+  .audio-progress-wrap {
+    @apply relative h-1.5 flex-1 cursor-pointer overflow-hidden rounded-full bg-charcoal-700;
+  }
+
+  .audio-progress-bar {
+    @apply absolute inset-y-0 left-0 rounded-full bg-copper-500;
+    width: 0%;
+  }
+
+  .audio-time {
+    @apply font-mono text-[10px] text-charcoal-500;
+  }
+
+  .music-label {
+    @apply mt-3 text-[10px] text-charcoal-500;
+  }
+
+  .blueprint-card {
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+
+  .blueprint-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px -12px rgba(184, 115, 51, 0.25);
+  }
+}
+
+@keyframes intro-float {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.4; }
+  50% { transform: translateY(-12px) scale(1.2); opacity: 0.9; }
+}
+
+@keyframes music-pulse {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(1.5); opacity: 0; }
 }

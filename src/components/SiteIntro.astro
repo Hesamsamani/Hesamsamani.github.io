@@ -1,0 +1,112 @@
+---
+const storageKey = 'hesam-portfolio-intro-seen';
+---
+
+<div
+  id="site-intro"
+  class="site-intro fixed inset-0 z-[200] flex items-center justify-center bg-charcoal-950"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="intro-title"
+  aria-describedby="intro-desc"
+>
+  <div id="intro-particles" class="intro-particles" aria-hidden="true"></div>
+  <div class="absolute inset-0 opacity-40" aria-hidden="true">
+    <div class="h-full w-full bg-[radial-gradient(ellipse_at_center,rgba(184,115,51,0.15),transparent_70%)]"></div>
+  </div>
+
+  <div class="relative mx-auto w-full max-w-md px-8 text-center">
+    <p class="font-mono text-xs uppercase tracking-[0.35em] text-copper-500/80">Loading experience...</p>
+    <div
+      class="mx-auto mt-8 flex h-24 w-24 items-center justify-center rounded-sm border border-copper-500/30 bg-charcoal-900/80 font-display text-3xl font-bold text-copper-400"
+      aria-hidden="true"
+    >
+      H<span class="text-charcoal-400">.</span>S
+    </div>
+    <h1 id="intro-title" class="mt-8 font-display text-3xl font-semibold text-charcoal-50">
+      Hesam Samani
+    </h1>
+    <p id="intro-desc" class="intro-tagline mt-3 text-base text-charcoal-400">
+      BIM Specialist · Revit · Healthcare Projects
+    </p>
+
+    <div class="intro-progress-track mx-auto mt-8 h-1 max-w-xs overflow-hidden rounded-full bg-charcoal-800">
+      <div id="intro-progress-bar" class="intro-progress-bar h-full w-0 rounded-full bg-copper-500"></div>
+    </div>
+
+    <button
+      type="button"
+      id="enter-site"
+      class="intro-enter-btn mt-10 hidden inline-flex items-center gap-2 rounded-sm bg-copper-500 px-8 py-3.5 text-sm font-semibold text-charcoal-950 opacity-0 transition-all hover:bg-copper-400 hover:shadow-lg hover:shadow-copper-500/25"
+    >
+      Enter Site
+      <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path stroke-linecap="square" d="M5 12h14M13 6l6 6-6 6" />
+      </svg>
+    </button>
+  </div>
+</div>
+
+<script define:vars={{ storageKey }}>
+  const intro = document.getElementById('site-intro');
+  const enterBtn = document.getElementById('enter-site');
+  const bar = document.getElementById('intro-progress-bar');
+  const tagline = document.querySelector('.intro-tagline');
+  const particleRoot = document.getElementById('intro-particles');
+
+  if (particleRoot) {
+    const count = window.innerWidth <= 768 ? 18 : 45;
+    for (let i = 0; i < count; i++) {
+      const p = document.createElement('span');
+      p.className = 'intro-particle';
+      p.style.left = `${Math.random() * 100}%`;
+      p.style.top = `${Math.random() * 100}%`;
+      p.style.animationDelay = `${Math.random() * 4}s`;
+      p.style.animationDuration = `${3 + Math.random() * 3}s`;
+      particleRoot.appendChild(p);
+    }
+  }
+
+  if (sessionStorage.getItem(storageKey) === '1') {
+    intro?.remove();
+  } else if (intro) {
+    document.body.style.overflow = 'hidden';
+  }
+
+  let progress = 0;
+  const tick = window.setInterval(() => {
+    if (!bar) return;
+    progress += Math.random() * 12 + 4;
+    if (progress >= 100) {
+      progress = 100;
+      bar.style.width = '100%';
+      window.clearInterval(tick);
+      window.setTimeout(() => {
+        tagline?.classList.add('hidden');
+        enterBtn?.classList.remove('hidden');
+        enterBtn?.classList.add('intro-enter-btn--visible');
+      }, 280);
+    } else {
+      bar.style.width = `${progress}%`;
+    }
+  }, 110);
+
+  const dismissIntro = () => {
+    if (!intro) return;
+    intro.classList.add('site-intro--exit');
+    sessionStorage.setItem(storageKey, '1');
+    window.setTimeout(() => intro.remove(), 500);
+    document.body.style.overflow = '';
+    if (typeof window.startPortfolioMusic === 'function') {
+      window.startPortfolioMusic();
+    }
+  };
+
+  enterBtn?.addEventListener('click', dismissIntro);
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' && intro && document.body.contains(intro) && enterBtn && !enterBtn.classList.contains('hidden')) {
+      dismissIntro();
+    }
+  });
+</script>
