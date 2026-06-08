@@ -18,29 +18,25 @@ import { profile } from '../data/profile';
   <div class="relative mx-auto w-full max-w-lg px-8 text-center">
     <span class="site-logo site-logo--cyan site-logo--intro mx-auto block" role="img" aria-label="Hesam Samani logo"></span>
 
-    <div class="relative mx-auto mt-6 h-52 w-52 sm:h-56 sm:w-56 md:h-64 md:w-64">
-      <div class="intro-profile h-full w-full">
-        <img
-          src="/images/profile.png"
-          alt=""
-          width="256"
-          height="256"
-          class="h-full w-full object-cover object-[center_20%]"
-          loading="eager"
-        />
-      </div>
-      <div class="age-callout age-callout--intro" aria-label={`${profile.age} years old`}>
-        <span class="age-callout__label">age spec</span>
-        <div class="age-callout__digits" aria-hidden="true">
-          <span class="age-callout__digit">{String(profile.age)[0]}</span>
-          <span class="age-callout__digit">{String(profile.age)[1]}</span>
-        </div>
-        <span class="age-callout__unit">years old</span>
-      </div>
+    <div class="intro-profile mx-auto mt-6 h-52 w-52 sm:h-56 sm:w-56 md:h-64 md:w-64">
+      <img
+        src="/images/profile.png"
+        alt=""
+        width="256"
+        height="256"
+        class="h-full w-full object-cover object-[center_20%]"
+        loading="eager"
+      />
     </div>
     <h1 id="intro-title" class="mt-8 font-display text-3xl font-semibold text-arch-50">
       Hesam Samani
     </h1>
+    <p class="mt-2 flex justify-center">
+      <span class="age-tag age-tag--intro" aria-label={`${profile.age} years old`}>
+        <span class="age-tag__value">{profile.age}</span>
+        <span class="age-tag__unit">yrs</span>
+      </span>
+    </p>
     <p id="intro-desc" class="intro-tagline mt-3 text-base text-arch-200">
       BIM Specialist · MEP &amp; HVAC Engineer
     </p>

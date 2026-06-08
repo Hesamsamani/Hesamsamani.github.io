@@ -15,33 +15,29 @@ const socialLinks = [
   <div class="section-container section-container--hero relative z-10 w-full">
     <div class="grid grid-cols-1 items-center gap-8 lg:grid-cols-[1fr_auto] lg:gap-16">
       <div class="reveal reveal-delay-1 mx-auto lg:col-start-2 lg:row-start-1 lg:mx-0">
-        <div class="relative mx-auto h-52 w-52 sm:h-56 sm:w-56 md:h-72 md:w-72 lg:mx-0">
-          <div class="hero-avatar h-full w-full">
-            <img
-              src="/images/profile.png"
-              alt="Hesam Samani — BIM Specialist portrait"
-              width="576"
-              height="576"
-              class="h-full w-full object-cover object-[center_20%]"
-              loading="eager"
-              fetchpriority="high"
-            />
-            <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-arch-950/50 via-transparent to-cyan-500/5" aria-hidden="true"></div>
-            <div class="pointer-events-none absolute inset-0 ring-1 ring-inset ring-cyan-500/25" aria-hidden="true"></div>
-          </div>
-          <div class="age-callout" aria-label={`${profile.age} years old`}>
-            <span class="age-callout__label">age spec</span>
-            <div class="age-callout__digits" aria-hidden="true">
-              <span class="age-callout__digit">{String(profile.age)[0]}</span>
-              <span class="age-callout__digit">{String(profile.age)[1]}</span>
-            </div>
-            <span class="age-callout__unit">years old</span>
-          </div>
+        <div class="hero-avatar relative mx-auto h-52 w-52 sm:h-56 sm:w-56 md:h-72 md:w-72 lg:mx-0">
+          <img
+            src="/images/profile.png"
+            alt="Hesam Samani — BIM Specialist portrait"
+            width="576"
+            height="576"
+            class="h-full w-full object-cover object-[center_20%]"
+            loading="eager"
+            fetchpriority="high"
+          />
+          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-arch-950/50 via-transparent to-cyan-500/5" aria-hidden="true"></div>
+          <div class="pointer-events-none absolute inset-0 ring-1 ring-inset ring-cyan-500/25" aria-hidden="true"></div>
         </div>
       </div>
 
       <div class="max-w-3xl lg:col-start-1 lg:row-start-1">
-        <p class="reveal section-label mb-4">{profile.greeting}</p>
+        <p class="reveal section-label mb-4 flex flex-wrap items-center gap-x-2.5 gap-y-1">
+          <span>{profile.greeting}</span>
+          <span class="age-tag" aria-label={`${profile.age} years old`}>
+            <span class="age-tag__value">{profile.age}</span>
+            <span class="age-tag__unit">yrs</span>
+          </span>
+        </p>
 
         <h1
           id="hero-heading"
