@@ -21,7 +21,16 @@ import { profile } from '../data/profile';
         }
       </div>
 
-      <aside class="reveal reveal-delay-3 blueprint-card p-6" aria-label="Quick facts">
+      <aside class="reveal reveal-delay-3 blueprint-card overflow-hidden p-0" aria-label="Quick facts">
+        <img
+          src="/images/profile.png"
+          alt="Hesam Samani"
+          width="560"
+          height="420"
+          class="h-48 w-full object-cover object-[center_15%] md:h-56"
+          loading="lazy"
+        />
+        <div class="p-6">
         <h3 class="mb-4 text-xs font-semibold uppercase tracking-[0.15em] text-copper-400">Focus Areas</h3>
         <ul class="space-y-3" role="list">
           <li class="flex items-start gap-3 text-sm text-charcoal-300">
@@ -41,6 +50,7 @@ import { profile } from '../data/profile';
             ISO 19650 compliance
           </li>
         </ul>
+        </div>
       </aside>
     </div>
   </div>
