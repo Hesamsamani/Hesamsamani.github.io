@@ -5,7 +5,7 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 5rem;
+    scroll-padding-top: 4.75rem;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -46,6 +46,10 @@
 @layer components {
   .section-container {
     @apply mx-auto max-w-5xl px-6 py-20 md:px-8;
+  }
+
+  .section-container--hero {
+    @apply pt-[4.75rem] pb-16 md:px-8 lg:pb-20;
   }
 
   .section-label {
