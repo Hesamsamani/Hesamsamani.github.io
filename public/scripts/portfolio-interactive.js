@@ -4,22 +4,46 @@
   const prefersHover = window.matchMedia('(hover: hover)').matches;
   const isMobile = window.innerWidth <= 768;
 
-  const theme = {
-    node: 'rgba(184, 115, 51,',
-    glow: 'rgba(184, 115, 51,',
-    particle: 'rgba(232, 184, 122,',
-    particleGlow: 'rgba(184, 115, 51,',
+  const palette = {
+    grid: 'rgba(33, 129, 189,',
+    node: 'rgba(33, 129, 189,',
+    beam: 'rgba(109, 173, 216,',
+    glow: 'rgba(128, 203, 243,',
+    particle: 'rgba(33, 129, 189,',
+    accent: 'rgba(60, 103, 142,',
   };
 
-  /* ── Ambient full-page canvas ── */
+  const GRID = isMobile ? 56 : 72;
+
+  const drawBlueprintGrid = (ctx, width, height, offsetX, offsetY, alpha) => {
+    ctx.strokeStyle = `${palette.grid}${alpha})`;
+    ctx.lineWidth = 0.5;
+    const startX = -((offsetX % GRID) + GRID) % GRID;
+    const startY = -((offsetY % GRID) + GRID) % GRID;
+    for (let x = startX; x < width; x += GRID) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, height);
+      ctx.stroke();
+    }
+    for (let y = startY; y < height; y += GRID) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(width, y);
+      ctx.stroke();
+    }
+  };
+
+  /* ── Ambient architecture canvas ── */
   const ambientCanvas = document.getElementById('ambient-canvas');
   if (ambientCanvas && prefersHover) {
     const ctx = ambientCanvas.getContext('2d');
     let mouse = { x: -9999, y: -9999 };
     const nodes = [];
-    const NODE_COUNT = isMobile ? 18 : 42;
-    const MOUSE_FIELD = 200;
-    const CONNECT_DIST = 130;
+    const NODE_COUNT = isMobile ? 22 : 48;
+    const MOUSE_FIELD = 220;
+    const CONNECT_DIST = GRID * 1.6;
+    let gridOffset = 0;
 
     const resize = () => {
       ambientCanvas.width = window.innerWidth;
@@ -32,54 +56,64 @@
       mouse.y = e.clientY;
     });
 
-    class Node {
+    class StructuralNode {
       constructor() {
         this.reset();
       }
       reset() {
-        this.x = Math.random() * ambientCanvas.width;
-        this.y = Math.random() * ambientCanvas.height;
-        this.baseVx = (Math.random() - 0.5) * 0.22;
-        this.baseVy = (Math.random() - 0.5) * 0.22;
+        this.x = Math.round((Math.random() * ambientCanvas.width) / GRID) * GRID;
+        this.y = Math.round((Math.random() * ambientCanvas.height) / GRID) * GRID;
+        this.baseVx = (Math.random() - 0.5) * 0.08;
+        this.baseVy = (Math.random() - 0.5) * 0.08;
         this.vx = this.baseVx;
         this.vy = this.baseVy;
-        this.r = 1.5 + Math.random() * 2;
-        this.alpha = 0.1 + Math.random() * 0.12;
+        this.r = 2 + Math.random() * 1.5;
+        this.alpha = 0.18 + Math.random() * 0.22;
+        this.isColumn = Math.random() > 0.65;
       }
       update() {
         const dx = mouse.x - this.x;
         const dy = mouse.y - this.y;
         const dist = Math.hypot(dx, dy);
         if (dist < MOUSE_FIELD && dist > 1) {
-          const force = ((MOUSE_FIELD - dist) / MOUSE_FIELD) * 0.07;
+          const force = ((MOUSE_FIELD - dist) / MOUSE_FIELD) * 0.04;
           this.vx += (dx / dist) * force;
           this.vy += (dy / dist) * force;
         }
-        this.vx *= 0.984;
-        this.vy *= 0.984;
+        this.vx = this.vx * 0.97 + this.baseVx * 0.03;
+        this.vy = this.vy * 0.97 + this.baseVy * 0.03;
         this.x += this.vx;
         this.y += this.vy;
-        if (this.x < -20) this.x = ambientCanvas.width + 20;
-        if (this.x > ambientCanvas.width + 20) this.x = -20;
-        if (this.y < -20) this.y = ambientCanvas.height + 20;
-        if (this.y > ambientCanvas.height + 20) this.y = -20;
+        if (this.x < -GRID) this.x = ambientCanvas.width + GRID;
+        if (this.x > ambientCanvas.width + GRID) this.x = -GRID;
+        if (this.y < -GRID) this.y = ambientCanvas.height + GRID;
+        if (this.y > ambientCanvas.height + GRID) this.y = -GRID;
       }
       draw() {
+        if (this.isColumn) {
+          ctx.strokeStyle = `${palette.beam}${this.alpha * 0.7})`;
+          ctx.lineWidth = 1;
+          ctx.strokeRect(this.x - 4, this.y - 4, 8, 8);
+        }
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-        ctx.fillStyle = `${theme.node}${this.alpha})`;
+        ctx.fillStyle = `${palette.node}${this.alpha})`;
         ctx.fill();
       }
     }
 
-    for (let i = 0; i < NODE_COUNT; i++) nodes.push(new Node());
+    for (let i = 0; i < NODE_COUNT; i++) nodes.push(new StructuralNode());
 
     const animate = () => {
+      gridOffset += 0.15;
       ctx.clearRect(0, 0, ambientCanvas.width, ambientCanvas.height);
 
-      const grd = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 180);
-      grd.addColorStop(0, `${theme.glow}0.06)`);
-      grd.addColorStop(1, `${theme.glow}0)`);
+      drawBlueprintGrid(ctx, ambientCanvas.width, ambientCanvas.height, gridOffset * 0.3, gridOffset * 0.2, 0.08);
+
+      const grd = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 200);
+      grd.addColorStop(0, `${palette.glow}0.14)`);
+      grd.addColorStop(0.5, `${palette.glow}0.04)`);
+      grd.addColorStop(1, `${palette.glow}0)`);
       ctx.fillStyle = grd;
       ctx.fillRect(0, 0, ambientCanvas.width, ambientCanvas.height);
 
@@ -94,13 +128,25 @@
           const dy = nodes[i].y - nodes[j].y;
           const dist = Math.hypot(dx, dy);
           if (dist < CONNECT_DIST) {
+            const a = 0.12 * (1 - dist / CONNECT_DIST);
             ctx.beginPath();
             ctx.moveTo(nodes[i].x, nodes[i].y);
             ctx.lineTo(nodes[j].x, nodes[j].y);
-            ctx.strokeStyle = `${theme.node}${0.05 * (1 - dist / CONNECT_DIST)})`;
-            ctx.lineWidth = 0.6;
+            ctx.strokeStyle = `${palette.beam}${a})`;
+            ctx.lineWidth = 0.8;
             ctx.stroke();
           }
+        }
+        const mdx = mouse.x - nodes[i].x;
+        const mdy = mouse.y - nodes[i].y;
+        const mdist = Math.hypot(mdx, mdy);
+        if (mdist < MOUSE_FIELD) {
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.strokeStyle = `${palette.glow}${0.2 * (1 - mdist / MOUSE_FIELD)})`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
         }
       }
 
@@ -109,17 +155,18 @@
     animate();
   }
 
-  /* ── Hero particle canvas ── */
+  /* ── Hero architecture canvas ── */
   const heroCanvas = document.getElementById('hero-particle-canvas');
   const heroSection = document.querySelector('[data-hero-section]');
 
   if (heroCanvas && heroSection && prefersHover) {
     const ctx = heroCanvas.getContext('2d');
-    const particles = [];
-    const COUNT = isMobile ? 35 : 120;
-    const CONNECT_DIST = isMobile ? 90 : 150;
-    const MOUSE_RADIUS = 240;
+    const nodes = [];
+    const COUNT = isMobile ? 28 : 64;
+    const CONNECT_DIST = isMobile ? 100 : 160;
+    const MOUSE_RADIUS = 260;
     let mouse = { x: null, y: null };
+    let tick = 0;
 
     const resize = () => {
       heroCanvas.width = heroCanvas.offsetWidth;
@@ -138,19 +185,19 @@
       mouse.y = null;
     });
 
-    class Particle {
+    class PlanNode {
       constructor() {
         this.reset();
       }
       reset() {
         this.x = Math.random() * heroCanvas.width;
         this.y = Math.random() * heroCanvas.height;
-        this.baseVx = (Math.random() - 0.5) * 0.5;
-        this.baseVy = (Math.random() - 0.5) * 0.5;
+        this.baseVx = (Math.random() - 0.5) * 0.25;
+        this.baseVy = (Math.random() - 0.5) * 0.25;
         this.vx = this.baseVx;
         this.vy = this.baseVy;
-        this.r = Math.random() * 2.5 + 1;
-        this.baseAlpha = Math.random() * 0.4 + 0.15;
+        this.r = Math.random() * 2 + 1.2;
+        this.baseAlpha = Math.random() * 0.35 + 0.15;
         this.a = this.baseAlpha;
       }
       update() {
@@ -161,15 +208,15 @@
           if (dist < MOUSE_RADIUS) {
             const force = (MOUSE_RADIUS - dist) / MOUSE_RADIUS;
             const angle = Math.atan2(dy, dx);
-            this.vx += Math.cos(angle) * force * 0.5;
-            this.vy += Math.sin(angle) * force * 0.5;
-            this.a = Math.min(1, this.baseAlpha + force * 0.7);
+            this.vx += Math.cos(angle) * force * 0.35;
+            this.vy += Math.sin(angle) * force * 0.35;
+            this.a = Math.min(0.85, this.baseAlpha + force * 0.55);
           } else {
             this.a += (this.baseAlpha - this.a) * 0.05;
           }
         }
-        this.vx *= 0.96;
-        this.vy *= 0.96;
+        this.vx *= 0.97;
+        this.vy *= 0.97;
         this.x += this.vx;
         this.y += this.vy;
         if (this.x < -10) this.x = heroCanvas.width + 10;
@@ -180,49 +227,54 @@
       draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-        ctx.fillStyle = `${theme.particle}${this.a})`;
+        ctx.fillStyle = `${palette.particle}${this.a})`;
         ctx.fill();
       }
     }
 
-    for (let i = 0; i < COUNT; i++) particles.push(new Particle());
+    for (let i = 0; i < COUNT; i++) nodes.push(new PlanNode());
 
     const animate = () => {
+      tick += 0.4;
       ctx.clearRect(0, 0, heroCanvas.width, heroCanvas.height);
+      drawBlueprintGrid(ctx, heroCanvas.width, heroCanvas.height, tick, tick * 0.6, 0.1);
+
       if (mouse.x !== null) {
         const g = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, MOUSE_RADIUS);
-        g.addColorStop(0, `${theme.particleGlow}0.18)`);
-        g.addColorStop(1, `${theme.particleGlow}0)`);
+        g.addColorStop(0, `${palette.glow}0.22)`);
+        g.addColorStop(1, `${palette.glow}0)`);
         ctx.fillStyle = g;
         ctx.fillRect(0, 0, heroCanvas.width, heroCanvas.height);
       }
-      particles.forEach((p) => {
+
+      nodes.forEach((p) => {
         p.update();
         p.draw();
       });
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
+
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const dx = nodes[i].x - nodes[j].x;
+          const dy = nodes[i].y - nodes[j].y;
           const dist = Math.hypot(dx, dy);
           if (dist < CONNECT_DIST) {
             ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `${theme.particle}${0.12 * (1 - dist / CONNECT_DIST)})`;
+            ctx.moveTo(nodes[i].x, nodes[i].y);
+            ctx.lineTo(nodes[j].x, nodes[j].y);
+            ctx.strokeStyle = `${palette.beam}${0.18 * (1 - dist / CONNECT_DIST)})`;
             ctx.lineWidth = 0.7;
             ctx.stroke();
           }
         }
         if (mouse.x !== null) {
-          const dx = particles[i].x - mouse.x;
-          const dy = particles[i].y - mouse.y;
+          const dx = nodes[i].x - mouse.x;
+          const dy = nodes[i].y - mouse.y;
           const dist = Math.hypot(dx, dy);
           if (dist < MOUSE_RADIUS) {
             ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.moveTo(nodes[i].x, nodes[i].y);
             ctx.lineTo(mouse.x, mouse.y);
-            ctx.strokeStyle = `${theme.particle}${0.25 * (1 - dist / MOUSE_RADIUS)})`;
+            ctx.strokeStyle = `${palette.particle}${0.3 * (1 - dist / MOUSE_RADIUS)})`;
             ctx.lineWidth = 1;
             ctx.stroke();
           }
@@ -268,7 +320,38 @@
     animateCursor();
   }
 
-  /* ── Music player ── */
+  /* ── Music player (skip silent intro) ── */
+  const MUSIC_FALLBACK_START = 5.5;
+  let musicStartOffset = MUSIC_FALLBACK_START;
+  let musicOffsetReady = false;
+
+  const detectAudibleStart = async (audioEl) => {
+    const src = audioEl.querySelector('source')?.src;
+    if (!src) return MUSIC_FALLBACK_START;
+    try {
+      const ctx = new AudioContext();
+      const res = await fetch(src);
+      const buf = await ctx.decodeAudioData(await res.arrayBuffer());
+      const data = buf.getChannelData(0);
+      const sampleRate = buf.sampleRate;
+      const threshold = 0.006;
+      const windowSize = Math.floor(sampleRate * 0.04);
+      for (let i = 0; i < data.length - windowSize; i += windowSize) {
+        let sum = 0;
+        for (let j = 0; j < windowSize; j++) sum += Math.abs(data[i + j]);
+        if (sum / windowSize > threshold) {
+          const seconds = Math.max(0, i / sampleRate - 0.15);
+          await ctx.close();
+          return seconds;
+        }
+      }
+      await ctx.close();
+    } catch {
+      /* decode or fetch failed — use fallback */
+    }
+    return MUSIC_FALLBACK_START;
+  };
+
   const musicToggle = document.getElementById('music-toggle');
   const musicWidget = document.getElementById('music-widget');
   const bgAudio = document.getElementById('bg-audio');
@@ -298,11 +381,42 @@
     musicToggle?.classList.toggle('is-playing', playing);
   };
 
-  window.startPortfolioMusic = () => {
+  const ensureAudiblePosition = () => {
+    if (!bgAudio || !musicOffsetReady) return;
+    if (bgAudio.currentTime < musicStartOffset - 0.25) {
+      bgAudio.currentTime = musicStartOffset;
+    }
+  };
+
+  const playMusic = async () => {
     if (!bgAudio) return;
+    if (!musicOffsetReady) {
+      musicStartOffset = await detectAudibleStart(bgAudio);
+      musicOffsetReady = true;
+    }
     bgAudio.volume = 0.35;
+    ensureAudiblePosition();
     bgAudio.play().then(() => setPlayingUI(true)).catch(() => {});
   };
+
+  window.startPortfolioMusic = playMusic;
+
+  if (bgAudio) {
+    detectAudibleStart(bgAudio).then((offset) => {
+      musicStartOffset = offset;
+      musicOffsetReady = true;
+    });
+
+    bgAudio.addEventListener('timeupdate', () => {
+      if (!bgAudio.duration) return;
+      if (isPlaying && bgAudio.currentTime < 1 && musicOffsetReady) {
+        bgAudio.currentTime = musicStartOffset;
+      }
+      const pct = (bgAudio.currentTime / bgAudio.duration) * 100;
+      if (audioProgressBar) audioProgressBar.style.width = `${pct}%`;
+      if (audioTimeEl) audioTimeEl.textContent = formatTime(bgAudio.currentTime);
+    });
+  }
 
   if (musicToggle && musicWidget && bgAudio) {
     musicToggle.addEventListener('click', () => {
@@ -311,7 +425,7 @@
       musicToggle.setAttribute('aria-expanded', String(widgetOpen));
       iconNote?.classList.toggle('hidden', widgetOpen);
       iconClose?.classList.toggle('hidden', !widgetOpen);
-      if (widgetOpen && !isPlaying) window.startPortfolioMusic();
+      if (widgetOpen && !isPlaying) playMusic();
     });
 
     audioPlayBtn?.addEventListener('click', () => {
@@ -319,22 +433,14 @@
         bgAudio.pause();
         setPlayingUI(false);
       } else {
-        bgAudio.volume = 0.35;
-        bgAudio.play().then(() => setPlayingUI(true)).catch(() => {});
+        playMusic();
       }
-    });
-
-    bgAudio.addEventListener('timeupdate', () => {
-      if (!bgAudio.duration) return;
-      const pct = (bgAudio.currentTime / bgAudio.duration) * 100;
-      if (audioProgressBar) audioProgressBar.style.width = `${pct}%`;
-      if (audioTimeEl) audioTimeEl.textContent = formatTime(bgAudio.currentTime);
     });
 
     audioProgressWrap?.addEventListener('click', (e) => {
       const rect = audioProgressWrap.getBoundingClientRect();
       const pct = (e.clientX - rect.left) / rect.width;
-      bgAudio.currentTime = pct * bgAudio.duration;
+      bgAudio.currentTime = Math.max(musicStartOffset, pct * bgAudio.duration);
     });
   }
 

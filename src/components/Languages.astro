@@ -15,11 +15,11 @@ import { profile } from '../data/profile';
         profile.languages.map((lang, index) => (
           <div class={`reveal reveal-delay-${index + 1} blueprint-card p-6`}>
             <div class="mb-3 flex items-baseline justify-between">
-              <h3 class="font-display text-lg font-semibold text-charcoal-50">{lang.language}</h3>
-              <span class="text-sm text-copper-400">{lang.level}</span>
+              <h3 class="font-display text-lg font-semibold text-arch-50">{lang.language}</h3>
+              <span class="text-sm text-cyan-400">{lang.level}</span>
             </div>
             <div
-              class="h-2 w-full overflow-hidden rounded-sm bg-charcoal-800"
+              class="h-2 w-full overflow-hidden rounded-sm bg-arch-800"
               role="progressbar"
               aria-valuenow={lang.proficiency}
               aria-valuemin={0}
@@ -27,7 +27,7 @@ import { profile } from '../data/profile';
               aria-label={`${lang.language} proficiency: ${lang.level}`}
             >
               <div
-                class="h-full rounded-sm bg-gradient-to-r from-copper-600 to-copper-400 transition-all duration-1000"
+                class="h-full rounded-sm bg-gradient-to-r from-cyan-600 to-cyan-400 transition-all duration-1000"
                 style={`width: ${lang.proficiency}%`}
               />
             </div>

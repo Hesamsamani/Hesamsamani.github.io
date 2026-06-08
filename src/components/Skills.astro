@@ -8,7 +8,7 @@ import { profile } from '../data/profile';
     <div class="reveal mb-12">
       <p class="section-label mb-2">Toolkit</p>
       <h2 id="skills-heading" class="section-title">Technical Skills</h2>
-      <p class="mt-4 max-w-2xl text-base text-charcoal-400">
+      <p class="mt-4 max-w-2xl text-base text-arch-200">
         Core competencies across BIM authoring, coordination, standards, and supporting software.
       </p>
     </div>
@@ -18,17 +18,17 @@ import { profile } from '../data/profile';
         profile.skills.map((group, index) => (
           <div class={`reveal reveal-delay-${index + 1} blueprint-card p-6`}>
             <div class="mb-4 flex items-center justify-between gap-2">
-              <h3 class="text-xs font-semibold uppercase tracking-[0.15em] text-copper-400">
+              <h3 class="text-xs font-semibold uppercase tracking-[0.15em] text-cyan-400">
                 {group.category}
               </h3>
-              <span class="rounded-sm bg-charcoal-800/80 px-2 py-0.5 font-mono text-[10px] text-charcoal-400">
+              <span class="rounded-sm bg-arch-800/80 px-2 py-0.5 font-mono text-[10px] text-arch-200">
                 {group.items.length} tools
               </span>
             </div>
             <ul class="flex flex-wrap gap-2" role="list">
               {group.items.map((skill) => (
                 <li>
-                  <span class="skill-pill inline-block rounded-sm border border-copper-500/20 bg-charcoal-800/50 px-3 py-1.5 text-sm text-charcoal-200 transition-colors hover:border-copper-500/40 hover:text-copper-300">
+                  <span class="skill-pill inline-block rounded-sm border border-cyan-500/20 bg-arch-800/50 px-3 py-1.5 text-sm text-arch-200 transition-colors hover:border-cyan-500/40 hover:text-cyan-300">
                     {skill}
                   </span>
                 </li>
