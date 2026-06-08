@@ -8,9 +8,12 @@ interface Props {
   description?: string;
 }
 
+const siteUrl = 'https://hesamsamani.me';
+const ogImage = `${siteUrl}/og.svg`;
+
 const {
   title = 'Hesam Samani — BIM Specialist',
-  description = 'BIM Specialist, Revit Professional, and Healthcare Projects expert based in Hasselt, Belgium. Open to relocation.',
+  description = 'BIM Specialist with 4+ years delivering healthcare and commercial projects in Revit. Autodesk ACP certified (Architecture, Structure, MEP). Based in Hasselt, Belgium — open to relocation.',
 } = Astro.props;
 ---
 
@@ -21,11 +24,18 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <meta name="author" content="Hesam Samani" />
-    <link rel="canonical" href="https://hesamsamani.me/" />
+    <link rel="canonical" href={`${siteUrl}/`} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content="https://hesamsamani.me/" />
-    <meta property="og:type" content="website" />
+    <meta property="og:url" content={siteUrl} />
+    <meta property="og:type" content="profile" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content="Hesam Samani — BIM Specialist portfolio" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content="Hesam Samani — BIM Specialist portfolio" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
