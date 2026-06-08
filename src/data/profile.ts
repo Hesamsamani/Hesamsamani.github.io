@@ -5,6 +5,7 @@ export const profile = {
   relocation: 'Open to relocation',
   tagline: 'BIM Specialist · Revit Professional · MEP & HVAC Engineer',
   roleTags: ['BIM Specialist', 'Revit Professional', 'MEP & HVAC Engineer'],
+  secondaryTags: ['Python Programmer', 'AI Expert'],
   email: 'hesamghsamani@gmail.com',
   phone: '+32 470 176161',
   whatsapp: 'https://wa.me/32470176161',
@@ -77,7 +78,7 @@ export const profile = {
     },
     {
       category: 'Software',
-      items: ['AutoCAD', 'Rhino', 'Python Programmer', 'SketchUp'],
+      items: ['AutoCAD', 'Rhino', 'Python Programmer', 'AI Expert', 'SketchUp'],
     },
   ],
   projects: [

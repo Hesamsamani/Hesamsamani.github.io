@@ -283,6 +283,23 @@
     @apply text-sm font-medium text-arch-300;
   }
 
+  .hero-tags {
+    @apply flex flex-wrap items-center justify-between gap-x-4 gap-y-2;
+  }
+
+  .hero-tags__primary,
+  .hero-tags__secondary {
+    @apply flex flex-wrap gap-2;
+  }
+
+  .hero-tags__secondary {
+    @apply w-full sm:ml-auto sm:w-auto sm:justify-end;
+  }
+
+  .hero-role-tag {
+    @apply inline-flex items-center rounded-sm border border-cyan-500/30 bg-cyan-500/10 px-3 py-1.5 text-sm font-medium text-cyan-300;
+  }
+
   .blueprint-card {
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
   }

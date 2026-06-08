@@ -48,14 +48,21 @@ const socialLinks = [
           <span class="age-note__text">years old</span>
         </p>
 
-        <div class="reveal reveal-delay-2 mt-5 flex flex-wrap gap-2">
-          {
-            profile.roleTags.map((tag) => (
-              <span class="inline-flex items-center rounded-sm border border-cyan-500/30 bg-cyan-500/10 px-3 py-1.5 text-sm font-medium text-cyan-300">
-                {tag}
-              </span>
-            ))
-          }
+        <div class="reveal reveal-delay-2 hero-tags mt-5">
+          <div class="hero-tags__primary">
+            {
+              profile.roleTags.map((tag) => (
+                <span class="hero-role-tag">{tag}</span>
+              ))
+            }
+          </div>
+          <div class="hero-tags__secondary">
+            {
+              profile.secondaryTags.map((tag) => (
+                <span class="hero-role-tag">{tag}</span>
+              ))
+            }
+          </div>
         </div>
 
         <p class="reveal reveal-delay-2 mt-5 max-w-2xl text-lg font-light leading-relaxed text-arch-200 md:text-xl">
