@@ -10,7 +10,7 @@ import { profile } from '../data/profile';
       <h2 id="skills-heading" class="section-title">Skills</h2>
     </div>
 
-    <div class="grid gap-6 md:grid-cols-3">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {
         profile.skills.map((group, index) => (
           <div class={`reveal reveal-delay-${index + 1} blueprint-card p-6`}>

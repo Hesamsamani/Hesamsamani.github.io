@@ -8,6 +8,12 @@
     scroll-padding-top: 5rem;
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
   body {
     @apply bg-charcoal-950 text-charcoal-100 font-body antialiased;
     background-image:
@@ -56,6 +62,23 @@
   .reveal-delay-3 { transition-delay: 0.3s; }
   .reveal-delay-4 { transition-delay: 0.4s; }
   .reveal-delay-5 { transition-delay: 0.5s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal,
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+
+    .reveal-delay-1,
+    .reveal-delay-2,
+    .reveal-delay-3,
+    .reveal-delay-4,
+    .reveal-delay-5 {
+      transition-delay: 0s;
+    }
+  }
 
   .blueprint-card {
     @apply rounded-sm border border-copper-500/20 bg-charcoal-900/60 backdrop-blur-sm;

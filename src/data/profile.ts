@@ -3,6 +3,7 @@ export const profile = {
   location: 'Hasselt, Belgium',
   relocation: 'Open to relocation',
   tagline: 'BIM Specialist · Revit Professional · Healthcare Projects',
+  roleTags: ['BIM Specialist', 'Revit Professional', 'Healthcare Projects'],
   email: 'hesamghsamani@gmail.com',
   phone: '+32 470 176161',
   linkedin: 'https://www.linkedin.com/in/hesam-samani/',
@@ -19,7 +20,7 @@ export const profile = {
   ],
   experience: [
     {
-      company: 'Olum Fonun',
+      company: 'Olum Fonun Kadoos Higher Education Institute',
       role: 'BIM Instructor',
       period: '2023 – 2025',
       bullets: [
@@ -44,6 +45,7 @@ export const profile = {
       period: '2019 – 2021',
       bullets: [
         'Produced Revit construction documentation for healthcare and commercial buildings up to LOD 400',
+        'Optimized BIM workflows achieving 15% fewer coordination errors, 18% less rework, and 12% fewer model errors',
         'Created parametric families and detail components reducing drawing revision time by 30%',
         'Participated in design coordination meetings and resolved 200+ clash reports via Navisworks',
       ],
@@ -61,6 +63,48 @@ export const profile = {
     {
       category: 'Standards & Delivery',
       items: ['ISO 19650', 'LOD 350–400', 'BEP Development'],
+    },
+    {
+      category: 'Software',
+      items: ['AutoCAD', 'Rhino', 'Python', 'SketchUp'],
+    },
+  ],
+  projects: [
+    {
+      title: 'Regional Hospital — Phase 2 CD',
+      category: 'Healthcare BIM',
+      description:
+        'Led multidisciplinary Revit production for a 12,000 m² hospital expansion, delivering coordinated LOD 400 construction documentation across architecture, structure, and MEP.',
+      highlights: [
+        'Federated 6 discipline models with weekly clash-detection cycles',
+        'Delivered 180+ sheets with ISO 19650-compliant naming and revision control',
+        'Reduced RFIs during documentation phase through proactive coordination',
+      ],
+      metrics: ['LOD 400', '6 Disciplines', '180+ Sheets'],
+    },
+    {
+      title: 'BIM Workflow Optimization',
+      category: 'Process Improvement',
+      description:
+        'Redesigned model-checking and coordination protocols for a multi-project AEC team, standardizing templates, clash workflows, and QA gates across three concurrent builds.',
+      highlights: [
+        '15% fewer coordination errors after implementing structured QA checklists',
+        '18% less rework through earlier clash resolution in design development',
+        '12% fewer model errors via automated Solibri rule-based validation',
+      ],
+      metrics: ['−15% Errors', '−18% Rework', '−12% Model Errors'],
+    },
+    {
+      title: 'BIM Teaching Portfolio',
+      category: 'Education',
+      description:
+        'Developed and delivered a semester-long Revit and BIM coordination curriculum for architecture and engineering students, bridging academic theory with industry-ready deliverables.',
+      highlights: [
+        'Structured 14-week program covering LOD standards through model federation',
+        'Mentored 50+ students on capstone projects from schematic design to CD',
+        'Built reusable lab modules for clash detection, BEP writing, and Navisworks coordination',
+      ],
+      metrics: ['50+ Students', '14 Weeks', '3 ACP Tracks'],
     },
   ],
   certifications: [
