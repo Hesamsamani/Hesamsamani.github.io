@@ -31,9 +31,15 @@ import { profile } from '../data/profile';
     <h1 id="intro-title" class="mt-8 font-display text-3xl font-semibold text-arch-50">
       Hesam Samani
     </h1>
+    <p class="age-note age-note--intro mx-auto mt-2" aria-label={`${profile.age} years old`}>
+      <svg class="age-note__icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+        <path stroke-linecap="square" d="M8 7V5a4 4 0 118 0v2M6 11h12v10H6V11z" />
+      </svg>
+      <span class="age-note__value">{profile.age}</span>
+      <span class="age-note__text">years old</span>
+    </p>
     <p id="intro-desc" class="intro-tagline mt-3 text-base text-arch-200">
       BIM Specialist · MEP &amp; HVAC Engineer
-      <span class="text-arch-500" aria-label={`${profile.age} years old`}> · {profile.age}</span>
     </p>
 
     <div class="intro-progress-track mx-auto mt-8 h-1 max-w-xs overflow-hidden rounded-full bg-arch-800">

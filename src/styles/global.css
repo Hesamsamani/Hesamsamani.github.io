@@ -263,6 +263,26 @@
     @apply relative overflow-hidden rounded-sm border-2 border-cyan-500/40 shadow-xl shadow-cyan-500/25 ring-1 ring-cyan-500/20;
   }
 
+  .age-note {
+    @apply inline-flex items-center gap-2 border-l-2 border-cyan-500/40 pl-3;
+  }
+
+  .age-note--intro {
+    @apply flex w-fit justify-center;
+  }
+
+  .age-note__icon {
+    @apply h-4 w-4 shrink-0 text-cyan-500/80;
+  }
+
+  .age-note__value {
+    @apply font-display text-xl font-bold leading-none text-cyan-400 md:text-2xl;
+  }
+
+  .age-note__text {
+    @apply text-sm font-medium text-arch-300;
+  }
+
   .blueprint-card {
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
   }
