@@ -12,16 +12,14 @@
   </div>
 
   <div class="relative mx-auto w-full max-w-md px-8 text-center">
-    <p class="font-mono text-xs uppercase tracking-[0.35em] text-cyan-500/80">Loading experience...</p>
+    <span class="site-logo site-logo--cyan site-logo--intro mx-auto block" role="img" aria-label="Hesam Samani logo"></span>
 
-    <span class="site-logo site-logo--cyan site-logo--intro mt-6 block" role="img" aria-label="Hesam Samani logo"></span>
-
-    <div class="mx-auto mt-6 h-24 w-24 overflow-hidden rounded-sm border-2 border-cyan-500/40 shadow-lg shadow-cyan-500/20">
+    <div class="intro-profile mx-auto mt-6 h-32 w-32 overflow-hidden rounded-sm border-2 border-cyan-500/40 shadow-lg shadow-cyan-500/20 sm:h-36 sm:w-36">
       <img
         src="/images/profile.png"
         alt=""
-        width="96"
-        height="96"
+        width="144"
+        height="144"
         class="h-full w-full object-cover object-[center_20%]"
         loading="eager"
       />
@@ -36,6 +34,10 @@
     <div class="intro-progress-track mx-auto mt-8 h-1 max-w-xs overflow-hidden rounded-full bg-arch-800">
       <div id="intro-progress-bar" class="intro-progress-bar h-full w-0 rounded-full bg-cyan-500"></div>
     </div>
+
+    <p class="intro-loading-label mt-4 font-mono text-xs uppercase tracking-[0.35em] text-cyan-500/80" aria-live="polite">
+      Loading experience...
+    </p>
 
     <button
       type="button"
@@ -56,7 +58,6 @@
   const intro = document.getElementById('site-intro');
   const enterBtn = document.getElementById('enter-site');
   const bar = document.getElementById('intro-progress-bar');
-  const tagline = document.querySelector('.intro-tagline');
   const particleRoot = document.getElementById('intro-particles');
 
   if (particleRoot) {
@@ -93,10 +94,7 @@
       progress = 100;
       bar.style.width = '100%';
       window.clearInterval(tick);
-      window.setTimeout(() => {
-        tagline?.classList.add('hidden');
-        showContinue();
-      }, 280);
+      window.setTimeout(showContinue, 280);
     } else {
       bar.style.width = `${progress}%`;
     }

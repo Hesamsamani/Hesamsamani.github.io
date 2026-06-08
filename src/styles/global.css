@@ -131,6 +131,16 @@
     animation: revealFade 0.5s ease forwards;
   }
 
+  .intro-loading-label {
+    animation: intro-breathe 2.4s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .intro-loading-label {
+      animation: none;
+    }
+  }
+
   .ambient-canvas {
     @apply pointer-events-none fixed inset-0 z-[1];
   }
@@ -238,7 +248,7 @@
   }
 
   .site-logo--intro {
-    @apply mx-auto h-16 w-16;
+    @apply h-16 w-16;
   }
 
   .blueprint-card {
@@ -254,6 +264,11 @@
 @keyframes intro-float {
   0%, 100% { transform: translateY(0) scale(1); opacity: 0.4; }
   50% { transform: translateY(-12px) scale(1.2); opacity: 0.9; }
+}
+
+@keyframes intro-breathe {
+  0%, 100% { opacity: 0.45; letter-spacing: 0.32em; }
+  50% { opacity: 1; letter-spacing: 0.38em; }
 }
 
 @keyframes music-pulse {
