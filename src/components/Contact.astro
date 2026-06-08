@@ -1,5 +1,7 @@
 ---
 import { profile } from '../data/profile';
+
+const linkedinHandle = profile.linkedin.replace(/\/$/, '').split('/').pop() ?? 'linkedin';
 ---
 
 <section id="contact" class="relative" aria-labelledby="contact-heading">
@@ -51,7 +53,7 @@ import { profile } from '../data/profile';
         </svg>
         <div>
           <p class="text-xs font-semibold uppercase tracking-wider text-charcoal-500">LinkedIn</p>
-          <p class="mt-1 text-sm font-medium text-charcoal-200 group-hover:text-copper-300">hesam-samani</p>
+          <p class="mt-1 text-sm font-medium text-charcoal-200 group-hover:text-copper-300">{linkedinHandle}</p>
         </div>
       </a>
     </div>

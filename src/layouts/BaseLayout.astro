@@ -8,8 +8,8 @@ interface Props {
   description?: string;
 }
 
-const siteUrl = 'https://hesamsamani.me';
-const ogImage = `${siteUrl}/og.svg`;
+const siteUrl = Astro.site?.href.replace(/\/$/, '') ?? 'https://hesamsamani.me';
+const ogImage = `${siteUrl}/og.png`;
 
 const {
   title = 'Hesam Samani — BIM Specialist',

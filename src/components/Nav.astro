@@ -51,7 +51,7 @@ const navLinks = [
     </ul>
   </nav>
 
-  <div id="mobile-menu" class="hidden border-t border-copper-500/10 bg-charcoal-950/95 md:hidden" role="dialog" aria-label="Mobile navigation">
+  <div id="mobile-menu" class="hidden border-t border-copper-500/10 bg-charcoal-950/95 md:hidden" role="dialog" aria-modal="false" aria-label="Mobile navigation">
     <ul class="flex flex-col px-6 py-4" role="list">
       {
         navLinks.map((link) => (
@@ -74,19 +74,31 @@ const navLinks = [
   const menu = document.getElementById('mobile-menu');
   const iconOpen = document.getElementById('menu-icon-open');
   const iconClose = document.getElementById('menu-icon-close');
+  let previousFocus: HTMLElement | null = null;
+
+  function getFocusableElements() {
+    if (!menu) return [];
+    return Array.from(menu.querySelectorAll<HTMLElement>('a[href], button:not([disabled])'));
+  }
 
   function closeMenu() {
     menu?.classList.add('hidden');
+    menu?.setAttribute('aria-modal', 'false');
     toggle?.setAttribute('aria-expanded', 'false');
     iconOpen?.classList.remove('hidden');
     iconClose?.classList.add('hidden');
+    previousFocus?.focus();
+    previousFocus = null;
   }
 
   function openMenu() {
+    previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     menu?.classList.remove('hidden');
+    menu?.setAttribute('aria-modal', 'true');
     toggle?.setAttribute('aria-expanded', 'true');
     iconOpen?.classList.add('hidden');
     iconClose?.classList.remove('hidden');
+    getFocusableElements()[0]?.focus();
   }
 
   toggle?.addEventListener('click', () => {
@@ -103,9 +115,30 @@ const navLinks = [
   });
 
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && !menu?.classList.contains('hidden')) {
+    if (menu?.classList.contains('hidden')) return;
+
+    if (event.key === 'Escape') {
       closeMenu();
       toggle?.focus();
+      return;
+    }
+
+    if (event.key !== 'Tab') return;
+
+    const focusable = [toggle, ...getFocusableElements()].filter(
+      (element): element is HTMLElement => element instanceof HTMLElement
+    );
+    if (focusable.length === 0) return;
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
     }
   });
 </script>

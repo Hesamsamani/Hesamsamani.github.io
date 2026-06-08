@@ -33,6 +33,13 @@ jobs:
       - name: Build site
         run: npm run build
 
+      - name: Verify build output
+        run: |
+          test -f dist/index.html
+          test -f dist/CNAME
+          test -f dist/.nojekyll
+          test -f dist/og.png
+
       - name: Disable Jekyll processing
         run: touch dist/.nojekyll
 

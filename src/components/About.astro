@@ -10,17 +10,6 @@ import { profile } from '../data/profile';
       <h2 id="about-heading" class="section-title">About</h2>
     </div>
 
-    <div class="reveal reveal-delay-1 mb-10 grid grid-cols-3 gap-4 md:gap-6">
-      {
-        profile.stats.map((stat, i) => (
-          <div class={`blueprint-card p-4 text-center md:p-5 reveal reveal-delay-${Math.min(i + 2, 5)}`}>
-            <p class="font-display text-2xl font-bold text-copper-400 md:text-3xl">{stat.value}</p>
-            <p class="mt-1 text-xs font-medium uppercase tracking-wider text-charcoal-400 md:text-sm">{stat.label}</p>
-          </div>
-        ))
-      }
-    </div>
-
     <div class="grid gap-8 md:grid-cols-[1fr_280px]">
       <div class="space-y-5">
         {
