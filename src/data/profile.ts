@@ -6,6 +6,7 @@ export const profile = {
   roleTags: ['BIM Specialist', 'Revit Professional', 'MEP & HVAC Engineer'],
   email: 'hesamghsamani@gmail.com',
   phone: '+32 470 176161',
+  whatsapp: 'https://wa.me/32470176161',
   linkedin: 'https://www.linkedin.com/in/hesam-samani/',
   github: 'https://github.com/Hesamsamani',
   codesSite: 'https://hesamsamani.codes',
