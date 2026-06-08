@@ -248,7 +248,7 @@
   }
 
   .site-logo--intro {
-    @apply h-16 w-16;
+    @apply h-24 w-24 sm:h-28 sm:w-28;
   }
 
   .intro-profile {

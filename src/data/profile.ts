@@ -2,7 +2,7 @@ export const profile = {
   name: 'Hesam Samani',
   location: 'Hasselt, Belgium',
   relocation: 'Open to relocation',
-  tagline: 'BIM Specialist · Revit Professional · MEP & HVAC Engineering',
+  tagline: 'BIM Specialist · Revit Professional · MEP & HVAC Engineer',
   roleTags: ['BIM Specialist', 'Revit Professional', 'MEP & HVAC Engineer'],
   email: 'hesamghsamani@gmail.com',
   phone: '+32 470 176161',
