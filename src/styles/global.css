@@ -263,27 +263,6 @@
     @apply relative overflow-hidden rounded-sm border-2 border-cyan-500/40 shadow-xl shadow-cyan-500/25 ring-1 ring-cyan-500/20;
   }
 
-  .age-tag {
-    @apply inline-flex items-center gap-1 rounded-sm border border-cyan-500/15 bg-cyan-500/5 py-px pl-1 pr-1.5;
-  }
-
-  .age-tag::before {
-    content: '';
-    @apply h-2.5 w-px shrink-0 bg-cyan-500/50;
-  }
-
-  .age-tag--intro {
-    @apply py-0.5 pl-1.5 pr-2;
-  }
-
-  .age-tag__value {
-    @apply font-display text-[0.65rem] font-semibold leading-none text-cyan-400;
-  }
-
-  .age-tag__unit {
-    @apply font-mono text-[0.5rem] tracking-wide text-arch-400;
-  }
-
   .blueprint-card {
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
   }

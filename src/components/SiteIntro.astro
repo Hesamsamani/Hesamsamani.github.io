@@ -31,14 +31,9 @@ import { profile } from '../data/profile';
     <h1 id="intro-title" class="mt-8 font-display text-3xl font-semibold text-arch-50">
       Hesam Samani
     </h1>
-    <p class="mt-2 flex justify-center">
-      <span class="age-tag age-tag--intro" aria-label={`${profile.age} years old`}>
-        <span class="age-tag__value">{profile.age}</span>
-        <span class="age-tag__unit">yrs</span>
-      </span>
-    </p>
     <p id="intro-desc" class="intro-tagline mt-3 text-base text-arch-200">
       BIM Specialist · MEP &amp; HVAC Engineer
+      <span class="text-arch-500" aria-label={`${profile.age} years old`}> · {profile.age}</span>
     </p>
 
     <div class="intro-progress-track mx-auto mt-8 h-1 max-w-xs overflow-hidden rounded-full bg-arch-800">
