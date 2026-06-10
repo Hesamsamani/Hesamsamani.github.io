@@ -297,7 +297,139 @@
   }
 
   .hero-role-tag {
-    @apply inline-flex items-center rounded-sm border border-cyan-500/30 bg-cyan-500/10 px-3 py-1.5 text-sm font-medium text-cyan-300;
+    @apply inline-flex items-center rounded-sm border border-cyan-500/30 bg-cyan-500/10 px-3 py-1.5 text-sm font-medium text-cyan-300 transition-colors duration-200 hover:border-cyan-400/50 hover:bg-cyan-500/15;
+  }
+
+  .availability-badge {
+    @apply mb-4 inline-flex items-center gap-2 rounded-full border border-cyan-500/25 bg-cyan-500/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-cyan-300 backdrop-blur-md;
+  }
+
+  .availability-badge__dot {
+    @apply relative flex h-2 w-2;
+  }
+
+  .availability-badge__dot::before {
+    content: '';
+    @apply absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75;
+  }
+
+  .availability-badge__dot::after {
+    content: '';
+    @apply relative inline-flex h-2 w-2 rounded-full bg-emerald-500;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .availability-badge__dot::before {
+      animation: none;
+      opacity: 0;
+    }
+  }
+
+  .glass-stats-panel {
+    @apply relative overflow-hidden rounded-sm border border-cyan-500/25 bg-arch-900/50 p-1 backdrop-blur-xl;
+    box-shadow:
+      inset 0 1px 0 0 rgba(128, 203, 243, 0.2),
+      0 20px 50px -24px rgba(33, 129, 189, 0.35);
+  }
+
+  .glass-stats-panel__glow {
+    @apply pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-cyan-500/10 blur-3xl;
+  }
+
+  .stat-card {
+    @apply relative flex flex-col items-center justify-center p-4 text-center transition-transform duration-200 md:p-6;
+  }
+
+  .stat-card:not(:last-child)::after {
+    content: '';
+    @apply absolute right-0 top-1/2 hidden h-10 w-px -translate-y-1/2 bg-cyan-500/20 md:block;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-2px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .stat-card:hover {
+      transform: none;
+    }
+  }
+
+  .btn-primary {
+    @apply inline-flex min-h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-sm bg-cyan-500 px-6 py-3 text-sm font-semibold text-white transition-all duration-200 hover:bg-cyan-400 hover:shadow-lg hover:shadow-cyan-500/25 active:scale-[0.98] sm:w-auto;
+  }
+
+  .btn-secondary {
+    @apply inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-sm border border-cyan-500/30 px-4 py-3 text-sm font-semibold text-cyan-300 transition-all duration-200 hover:border-cyan-400 hover:bg-cyan-500/10 active:scale-[0.98] sm:px-6;
+  }
+
+  .btn-ghost {
+    @apply inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-sm border border-arch-700/60 px-4 py-3 text-sm font-semibold text-arch-200 transition-all duration-200 hover:border-cyan-500/30 hover:text-cyan-300 active:scale-[0.98] sm:px-6;
+  }
+
+  .project-card {
+    @apply blueprint-card relative flex flex-col overflow-hidden transition-all duration-300;
+  }
+
+  .project-card__media {
+    @apply relative flex h-36 items-end overflow-hidden border-b border-cyan-500/15 bg-gradient-to-br from-arch-800 via-arch-900 to-arch-950 p-5;
+  }
+
+  .project-card__media::after {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-t from-cyan-500/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100;
+  }
+
+  .project-card__corner {
+    @apply pointer-events-none absolute h-2.5 w-2.5 border-cyan-400 opacity-0 transition-opacity duration-200 group-hover:opacity-100;
+  }
+
+  .project-card__corner--tl {
+    @apply left-0 top-0 border-l-2 border-t-2;
+  }
+
+  .project-card__corner--tr {
+    @apply right-0 top-0 border-r-2 border-t-2;
+  }
+
+  .project-card__corner--bl {
+    @apply bottom-0 left-0 border-b-2 border-l-2;
+  }
+
+  .project-card__corner--br {
+    @apply bottom-0 right-0 border-b-2 border-r-2;
+  }
+
+  .project-card__link {
+    @apply mt-4 inline-flex cursor-pointer items-center gap-1.5 text-sm font-medium text-cyan-400 transition-all duration-200 hover:gap-2.5 hover:text-cyan-300;
+  }
+
+  .skill-card {
+    @apply blueprint-card relative overflow-visible p-6;
+  }
+
+  .skill-card__icon {
+    @apply mb-4 flex h-10 w-10 items-center justify-center rounded-sm border border-cyan-500/25 bg-arch-800/80 text-cyan-400 transition-colors duration-200 group-hover:border-cyan-400/40 group-hover:bg-cyan-500/10;
+  }
+
+  .skill-card__corner {
+    @apply pointer-events-none absolute h-2 w-2 bg-cyan-400 opacity-0 transition-opacity duration-200 group-hover:opacity-100;
+  }
+
+  .skill-card__corner--tl {
+    @apply -left-1 -top-1;
+  }
+
+  .skill-card__corner--tr {
+    @apply -right-1 -top-1;
+  }
+
+  .skill-card__corner--bl {
+    @apply -bottom-1 -left-1;
+  }
+
+  .skill-card__corner--br {
+    @apply -bottom-1 -right-1;
   }
 
   .blueprint-card {
@@ -307,6 +439,16 @@
   .blueprint-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 12px 40px -12px rgba(33, 129, 189, 0.22);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .blueprint-card,
+    .blueprint-card:hover,
+    .project-card,
+    .skill-card {
+      transform: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
   }
 }
 

@@ -16,7 +16,16 @@ import { profile } from '../data/profile';
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {
         profile.skills.map((group, index) => (
-          <div class={`reveal reveal-delay-${index + 1} blueprint-card p-6`}>
+          <div class={`reveal reveal-delay-${index + 1} skill-card group`}>
+            <span class="skill-card__corner skill-card__corner--tl" aria-hidden="true"></span>
+            <span class="skill-card__corner skill-card__corner--tr" aria-hidden="true"></span>
+            <span class="skill-card__corner skill-card__corner--bl" aria-hidden="true"></span>
+            <span class="skill-card__corner skill-card__corner--br" aria-hidden="true"></span>
+            <div class="skill-card__icon" aria-hidden="true">
+              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="square" d="M4 7h16M4 12h10M4 17h16" />
+              </svg>
+            </div>
             <div class="mb-4 flex items-center justify-between gap-2">
               <h3 class="text-xs font-semibold uppercase tracking-[0.15em] text-cyan-400">
                 {group.category}
@@ -28,7 +37,7 @@ import { profile } from '../data/profile';
             <ul class="flex flex-wrap gap-2" role="list">
               {group.items.map((skill) => (
                 <li>
-                  <span class="skill-pill inline-block rounded-sm border border-cyan-500/20 bg-arch-800/50 px-3 py-1.5 text-sm text-arch-200 transition-colors hover:border-cyan-500/40 hover:text-cyan-300">
+                  <span class="skill-pill inline-block cursor-default rounded-sm border border-cyan-500/20 bg-arch-800/50 px-3 py-1.5 text-sm text-arch-200 transition-colors duration-200 hover:border-cyan-500/40 hover:text-cyan-300">
                     {skill}
                   </span>
                 </li>
