@@ -23,26 +23,25 @@ import { profile } from '../data/profile';
                 job.featured && 'ring-1 ring-cyan-500/25',
               ]}
             >
-              {job.featured && (
-                <span class="absolute right-4 top-4 rounded-sm border border-cyan-500/40 bg-cyan-500/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-cyan-300">
-                  Featured Role
-                </span>
-              )}
-
               <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                <div class="flex gap-4">
+                <div class="flex min-w-0 gap-4">
                   <div
                     class="flex h-12 w-12 shrink-0 items-center justify-center rounded-sm border border-cyan-500/25 bg-arch-800/80 font-display text-lg font-bold text-cyan-400"
                     aria-hidden="true"
                   >
                     {job.company.charAt(0)}
                   </div>
-                  <div>
-                    <h3 class="font-display text-xl font-semibold text-arch-50">{job.role}</h3>
+                  <div class="min-w-0">
+                    <div class="flex flex-wrap items-center gap-2">
+                      <h3 class="font-display text-xl font-semibold text-arch-50">{job.role}</h3>
+                      {job.featured && (
+                        <span class="experience-featured-badge">Featured Role</span>
+                      )}
+                    </div>
                     <p class="text-cyan-400">{job.company}</p>
                   </div>
                 </div>
-                <div class="flex shrink-0 flex-wrap items-center gap-2 sm:flex-col sm:items-end">
+                <div class="experience-card__meta sm:pl-4">
                   {'duration' in job && job.duration && (
                     <span class="rounded-sm border border-cyan-500/20 bg-arch-800/60 px-2.5 py-1 font-mono text-xs text-cyan-300">
                       {job.duration}

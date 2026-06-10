@@ -3,7 +3,7 @@ export const profile = {
   age: 29,
   location: 'Hasselt, Belgium',
   relocation: 'Open to relocation',
-  tagline: 'BIM Specialist · Revit Professional · MEP & HVAC Engineer',
+  tagline: 'Healthcare & commercial BIM delivery · ISO 19650 · LOD 350–400 coordination',
   roleTags: ['BIM Specialist', 'Revit Professional', 'MEP & HVAC Engineer'],
   secondaryTags: ['Python Programmer', 'AI Expert'],
   email: 'hesamghsamani@gmail.com',

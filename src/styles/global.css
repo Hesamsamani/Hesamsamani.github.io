@@ -284,20 +284,31 @@
   }
 
   .hero-tags {
-    @apply flex flex-wrap items-center justify-between gap-x-4 gap-y-2;
-  }
-
-  .hero-tags__primary,
-  .hero-tags__secondary {
-    @apply flex flex-wrap gap-2;
-  }
-
-  .hero-tags__secondary {
-    @apply w-full sm:ml-auto sm:w-auto sm:justify-end;
+    @apply flex flex-wrap items-center gap-2;
   }
 
   .hero-role-tag {
     @apply inline-flex items-center rounded-sm border border-cyan-500/30 bg-cyan-500/10 px-3 py-1.5 text-sm font-medium text-cyan-300 transition-colors duration-200 hover:border-cyan-400/50 hover:bg-cyan-500/15;
+  }
+
+  .hero-role-tag--accent {
+    @apply border-cyan-400/35 bg-arch-800/70 text-arch-200;
+  }
+
+  .contact-card {
+    @apply blueprint-card flex min-h-[9.5rem] flex-col gap-3 p-5 transition-all hover:border-cyan-400/40 hover:bg-arch-800/40 sm:p-6;
+  }
+
+  .contact-card__value {
+    @apply mt-1 break-words text-sm font-medium leading-snug text-arch-200 group-hover:text-cyan-300;
+  }
+
+  .experience-card__meta {
+    @apply flex shrink-0 flex-col items-start gap-1.5 sm:items-end;
+  }
+
+  .experience-featured-badge {
+    @apply inline-flex w-fit rounded-sm border border-cyan-500/40 bg-cyan-500/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-cyan-300;
   }
 
   .availability-badge {
