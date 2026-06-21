@@ -2,6 +2,16 @@
 import { profile } from '../data/profile';
 
 const categories = ['All', ...new Set(profile.projects.map((p) => p.category))];
+
+const filterIconType = (category: string) => {
+  if (category === 'All') return 'grid';
+  if (category === 'MEP & HVAC') return 'cross';
+  if (category === 'Process Improvement') return 'layers';
+  if (category === 'Education') return 'book';
+  if (category.includes('Healthcare')) return 'cross';
+  if (category.includes('BIM')) return 'layers';
+  return 'grid';
+};
 ---
 
 <section id="projects" class="relative" aria-labelledby="projects-heading">
@@ -26,7 +36,7 @@ const categories = ['All', ...new Set(profile.projects.map((p) => p.category))];
           <button
             type="button"
             class:list={[
-              'rounded-sm border px-4 py-2 text-xs font-semibold uppercase tracking-wider transition-all',
+              'inline-flex items-center gap-2 rounded-sm border px-4 py-2 text-xs font-semibold uppercase tracking-wider transition-all',
               index === 0
                 ? 'border-cyan-500/50 bg-cyan-500/15 text-cyan-300'
                 : 'border-cyan-500/20 bg-arch-900/40 text-arch-200 hover:border-cyan-400/40 hover:text-cyan-300',
@@ -34,6 +44,34 @@ const categories = ['All', ...new Set(profile.projects.map((p) => p.category))];
             data-filter={category}
             aria-pressed={index === 0 ? 'true' : 'false'}
           >
+            <span class="shrink-0 text-cyan-400/80" aria-hidden="true">
+              {filterIconType(category) === 'grid' && (
+                <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="7" height="7" rx="0.5" />
+                  <rect x="14" y="3" width="7" height="7" rx="0.5" />
+                  <rect x="3" y="14" width="7" height="7" rx="0.5" />
+                  <rect x="14" y="14" width="7" height="7" rx="0.5" />
+                </svg>
+              )}
+              {filterIconType(category) === 'cross' && (
+                <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" d="M12 6v12M6 12h12" />
+                  <circle cx="12" cy="12" r="9" />
+                </svg>
+              )}
+              {filterIconType(category) === 'layers' && (
+                <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="square" d="M12 3L3 8l9 5 9-5-9-5z" />
+                  <path stroke-linecap="square" d="M3 12l9 5 9-5" />
+                </svg>
+              )}
+              {filterIconType(category) === 'book' && (
+                <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="square" d="M5 4h7a3 3 0 013 3v13H8a3 3 0 00-3 3V4z" />
+                  <path stroke-linecap="square" d="M19 4h-7a3 3 0 00-3 3v13h7a3 3 0 003-3V4z" />
+                </svg>
+              )}
+            </span>
             {category}
           </button>
         ))
