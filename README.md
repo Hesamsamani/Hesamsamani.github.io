@@ -14,6 +14,11 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![GitHub Pages](https://img.shields.io/badge/deploy-GitHub_Pages-222?style=for-the-badge&logo=github&logoColor=white)](https://pages.github.com/)
 
+[![BIM](https://img.shields.io/badge/domain-BIM-0ea5e9?style=for-the-badge&logo=autodesk&logoColor=white)](https://www.autodesk.com/solutions/bim)
+[![Revit](https://img.shields.io/badge/tools-Revit-0595D3?style=for-the-badge&logo=autodesk&logoColor=white)](https://www.autodesk.com/products/revit/overview)
+[![ISO 19650](https://img.shields.io/badge/standards-ISO_19650-64748b?style=for-the-badge&logo=readthedocs&logoColor=white)](https://www.iso.org/standard/68078.html)
+[![GitHub Actions](https://img.shields.io/badge/CI-GitHub_Actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white)](./.github/workflows/)
+
 [What is this?](#what-is-this) · [How it works](#how-it-works) · [Architecture](#architecture) · [Quick start](#quick-start) · [Projects site](https://hesamsamani.codes)
 
 </div>
