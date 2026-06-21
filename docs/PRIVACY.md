@@ -1,14 +1,7 @@
 # Privacy notes (portfolio)
 
-## Google Fonts (optional hardening)
+## Fonts (self-hosted)
 
-The site currently loads **Fraunces** and **Source Sans 3** from `fonts.googleapis.com` in `src/layouts/BaseLayout.astro`. Visitors' browsers may send their IP to Google when fonts load.
+**Fraunces** and **Source Sans 3** are bundled via `@fontsource-variable/*` and imported in `src/styles/global.css`. No requests are sent to `fonts.googleapis.com` or `fonts.gstatic.com` at runtime.
 
-To self-host (recommended for stricter privacy):
-
-1. Download font files from [google-webfonts-helper](https://gwfh.mranftl.com/fonts) or Google Fonts.
-2. Place `.woff2` files under `public/fonts/`.
-3. Replace the `<link href="https://fonts.googleapis.com/...">` block with a local `@font-face` sheet in `src/styles/global.css`.
-4. Remove `fonts.gstatic.com` preconnect if unused.
-
-This is a **P3** improvement — no functional change to the portfolio.
+To update fonts: bump the `@fontsource-variable/fraunces` and `@fontsource-variable/source-sans-3` packages in `package.json`, then run `npm install` and `npm run build`.
