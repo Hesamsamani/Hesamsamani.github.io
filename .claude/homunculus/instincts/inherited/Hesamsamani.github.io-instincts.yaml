@@ -1,0 +1,299 @@
+# Instincts generated from https://github.com/Hesamsamani/Hesamsamani.github.io
+# Generated: 2026-06-21T04:56:53.044Z
+# Version: 2.0
+# NOTE: This file supplements (does not replace) any existing curated instincts.
+# High-confidence manually curated instincts should be preserved alongside these.
+
+---
+id: Hesamsamani.github.io-commit-conventional
+trigger: "when writing a commit message"
+confidence: 0.85
+domain: git
+source: repo-analysis
+source_repo: https://github.com/Hesamsamani/Hesamsamani.github.io
+---
+
+# Hesamsamani.github.io Commit Conventional
+
+## Action
+
+Use conventional commit format with prefixes: chore
+
+## Evidence
+
+- 1 commits analyzed
+- Detected conventional commit pattern
+- Examples: chore(audit): cycle 001 CI audit gate and deps
+
+---
+id: Hesamsamani.github.io-commit-length
+trigger: "when writing a commit message"
+confidence: 0.6
+domain: git
+source: repo-analysis
+source_repo: https://github.com/Hesamsamani/Hesamsamani.github.io
+---
+
+# Hesamsamani.github.io Commit Length
+
+## Action
+
+Keep commit messages concise (~46 characters)
+
+## Evidence
+
+- Average commit message length: 46 chars
+- Based on 1 commits
+
+---
+id: Hesamsamani.github.io-naming-files
+trigger: "when creating a new file"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/Hesamsamani/Hesamsamani.github.io
+---
+
+# Hesamsamani.github.io Naming Files
+
+## Action
+
+Use camelCase naming convention
+
+## Evidence
+
+- Analyzed file naming patterns in repository
+- Dominant pattern: camelCase
+
+---
+id: Hesamsamani.github.io-import-relative
+trigger: "when importing modules"
+confidence: 0.75
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/Hesamsamani/Hesamsamani.github.io
+---
+
+# Hesamsamani.github.io Import Relative
+
+## Action
+
+Use relative imports for project files
+
+## Evidence
+
+- Import analysis shows relative import pattern
+- Example: import { x } from '../lib/x'
+
+---
+id: Hesamsamani.github.io-export-style
+trigger: "when exporting from a module"
+confidence: 0.7
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/Hesamsamani/Hesamsamani.github.io
+---
+
+# Hesamsamani.github.io Export Style
+
+## Action
+
+Prefer named exports
+
+## Evidence
+
+- Export pattern analysis
+- Dominant style: named
+
+---
+id: Hesamsamani.github.io-test-separate
+trigger: "when writing tests"
+confidence: 0.8
+domain: testing
+source: repo-analysis
+source_repo: https://github.com/Hesamsamani/Hesamsamani.github.io
+---
+
+# Hesamsamani.github.io Test Separate
+
+## Action
+
+Place tests in the tests/ or __tests__/ directory, mirroring src structure
+
+## Evidence
+
+- Separate test directory pattern detected
+- Tests live in dedicated test folders
+
+---
+id: hesamsamani.github.io-instinct-file-naming
+trigger: "When creating a new file"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: Hesamsamani/Hesamsamani.github.io
+---
+
+# Hesamsamani.github.io Instinct File Naming
+
+## Action
+
+Name the file using camelCase
+
+## Evidence
+
+- Pattern in namingConventions.files
+
+---
+id: hesamsamani.github.io-instinct-function-naming
+trigger: "When defining a function"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: Hesamsamani/Hesamsamani.github.io
+---
+
+# Hesamsamani.github.io Instinct Function Naming
+
+## Action
+
+Name the function using camelCase
+
+## Evidence
+
+- Pattern in namingConventions.functions
+
+---
+id: hesamsamani.github.io-instinct-class-naming
+trigger: "When defining a class"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: Hesamsamani/Hesamsamani.github.io
+---
+
+# Hesamsamani.github.io Instinct Class Naming
+
+## Action
+
+Name the class using PascalCase
+
+## Evidence
+
+- Pattern in namingConventions.classes
+
+---
+id: hesamsamani.github.io-instinct-constant-naming
+trigger: "When defining a constant"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: Hesamsamani/Hesamsamani.github.io
+---
+
+# Hesamsamani.github.io Instinct Constant Naming
+
+## Action
+
+Name the constant using SCREAMING_SNAKE_CASE
+
+## Evidence
+
+- Pattern in namingConventions.constants
+
+---
+id: hesamsamani.github.io-instinct-import-style
+trigger: "When importing modules"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: Hesamsamani/Hesamsamani.github.io
+---
+
+# Hesamsamani.github.io Instinct Import Style
+
+## Action
+
+Use relative import paths
+
+## Evidence
+
+- Pattern in importStyle
+
+---
+id: hesamsamani.github.io-instinct-export-style
+trigger: "When exporting code"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: Hesamsamani/Hesamsamani.github.io
+---
+
+# Hesamsamani.github.io Instinct Export Style
+
+## Action
+
+Use named exports
+
+## Evidence
+
+- Pattern in exportStyle
+
+---
+id: hesamsamani.github.io-instinct-git-commit-format
+trigger: "When writing a commit message"
+confidence: 0.9
+domain: git
+source: repo-analysis
+source_repo: Hesamsamani/Hesamsamani.github.io
+---
+
+# Hesamsamani.github.io Instinct Git Commit Format
+
+## Action
+
+Use the conventional commit format with a 'chore' prefix and scope, e.g., 'chore(scope): message'
+
+## Evidence
+
+- Seen in commit 'chore(audit): cycle 001 CI audit gate and deps'
+- Pattern in commits.prefixes
+
+---
+id: hesamsamani.github.io-instinct-git-commit-length
+trigger: "When writing a commit message"
+confidence: 0.7
+domain: git
+source: repo-analysis
+source_repo: Hesamsamani/Hesamsamani.github.io
+---
+
+# Hesamsamani.github.io Instinct Git Commit Length
+
+## Action
+
+Keep the commit message concise, around 46 characters on average
+
+## Evidence
+
+- Pattern in commits.averageLength
+
+---
+id: hesamsamani.github.io-instinct-test-location
+trigger: "When adding tests"
+confidence: 0.8
+domain: testing
+source: repo-analysis
+source_repo: Hesamsamani/Hesamsamani.github.io
+---
+
+# Hesamsamani.github.io Instinct Test Location
+
+## Action
+
+Place tests in a separate folder from source code
+
+## Evidence
+
+- Pattern in architecture.folderStructure.testLocation
+
