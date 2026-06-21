@@ -30,6 +30,20 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Audit dependencies (high severity)
+        run: |
+          npm audit fix || true
+          if npm audit --audit-level=high; then
+            echo "No high-severity vulnerabilities."
+          else
+            echo "High-severity issues remain; checking for available fixes..."
+            if npm audit fix --dry-run 2>&1 | grep -qiE 'fix available|up to date'; then
+              echo "Fixable high-severity vulnerabilities remain after npm audit fix."
+              exit 1
+            fi
+            echo "No automatic fix available for remaining high-severity issues; continuing."
+          fi
+
       - name: Build site
         run: npm run build
 
