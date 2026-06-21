@@ -8,12 +8,12 @@
     "preview": "astro preview"
   },
   "dependencies": {
-    "astro": "^6.4.8"
+    "@tailwindcss/vite": "^4.3.0",
+    "astro": "^6.4.8",
+    "tailwindcss": "^4.3.0"
   },
   "devDependencies": {
-    "@astrojs/tailwind": "^6.0.2",
     "sharp": "^0.34.5",
-    "tailwindcss": "^3.4.17",
     "typescript": "^5.8.3"
   }
 }

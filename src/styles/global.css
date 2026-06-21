@@ -1,6 +1,30 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Source Sans 3", system-ui, sans-serif;
+
+  --color-arch-50: #1c2b3e;
+  --color-arch-100: #243548;
+  --color-arch-200: #3c678e;
+  --color-arch-300: #5a85a8;
+  --color-arch-400: #6dadd8;
+  --color-arch-500: #2181bd;
+  --color-arch-600: #1a6a9e;
+  --color-arch-700: #c5e3f5;
+  --color-arch-800: #e3f2fb;
+  --color-arch-900: #f0f8fd;
+  --color-arch-950: #f8fcff;
+
+  --color-cyan-300: #80cbf3;
+  --color-cyan-400: #6dadd8;
+  --color-cyan-500: #2181bd;
+  --color-cyan-600: #1a6a9e;
+  --color-cyan-700: #155a85;
+
+  --color-blueprint-line: rgba(33, 129, 189, 0.14);
+  --color-blueprint-accent: rgba(33, 129, 189, 0.28);
+}
 
 @layer base {
   html {
@@ -17,8 +41,8 @@
   body {
     @apply bg-arch-950 text-arch-100 font-body antialiased;
     background-image:
-      linear-gradient(blueprint.line 1px, transparent 1px),
-      linear-gradient(90deg, blueprint.line 1px, transparent 1px),
+      linear-gradient(var(--color-blueprint-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-blueprint-line) 1px, transparent 1px),
       radial-gradient(ellipse at 15% 0%, rgba(128, 203, 243, 0.35) 0%, transparent 55%),
       radial-gradient(ellipse at 85% 100%, rgba(33, 129, 189, 0.12) 0%, transparent 45%);
     background-size: 48px 48px, 48px 48px, 100% 100%, 100% 100%;
@@ -296,7 +320,8 @@
   }
 
   .contact-card {
-    @apply blueprint-card flex min-h-[9.5rem] flex-col gap-3 p-5 transition-all hover:border-cyan-400/40 hover:bg-arch-800/40 sm:p-6;
+    @apply flex min-h-[9.5rem] flex-col gap-3 rounded-sm border border-cyan-500/20 bg-white/70 p-5 backdrop-blur-sm transition-all hover:border-cyan-400/40 hover:bg-arch-800/40 sm:p-6;
+    box-shadow: inset 0 1px 0 0 rgba(128, 203, 243, 0.35), 0 4px 24px -8px rgba(28, 43, 62, 0.08);
   }
 
   .contact-card__value {
@@ -379,7 +404,8 @@
   }
 
   .project-card {
-    @apply blueprint-card relative flex flex-col overflow-hidden transition-all duration-300;
+    @apply relative flex flex-col overflow-hidden rounded-sm border border-cyan-500/20 bg-white/70 backdrop-blur-sm transition-all duration-300;
+    box-shadow: inset 0 1px 0 0 rgba(128, 203, 243, 0.35), 0 4px 24px -8px rgba(28, 43, 62, 0.08);
   }
 
   .project-card__media {
@@ -416,7 +442,8 @@
   }
 
   .skill-card {
-    @apply blueprint-card relative overflow-visible p-6;
+    @apply relative overflow-visible rounded-sm border border-cyan-500/20 bg-white/70 p-6 backdrop-blur-sm;
+    box-shadow: inset 0 1px 0 0 rgba(128, 203, 243, 0.35), 0 4px 24px -8px rgba(28, 43, 62, 0.08);
   }
 
   .skill-card__icon {
@@ -461,6 +488,11 @@
       transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
   }
+}
+
+@keyframes revealFade {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 @keyframes intro-float {
